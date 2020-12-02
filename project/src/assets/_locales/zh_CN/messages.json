@@ -1,0 +1,80 @@
+{
+  "extensionName": {
+    "message": "Tidier bookmark"
+  },
+  "extensionDescription": {
+    "message": "在添加书签时可以自动根据定义的规则修改书签名称，以获得更整洁的书签，同时还提供了批量修改已存在的书签名称功能。"
+  },
+  "bookmarkNameLabel": {
+    "message": "名称"
+  },
+  "bookmarkOriginalNameLabel": {
+    "message": "原名称"
+  },
+  "bookmarkUrlLabel": {
+    "message": "网址"
+  },
+  "bookmarkFolderLabel": {
+    "message": "文件夹"
+  },
+  "bookmarkAddedTitle": {
+    "message": "已添加书签"
+  },
+  "bookmarkModifyTitle": {
+    "message": "修改书签"
+  },
+  "bookmarkAddTip": {
+    "message": "为此标签页添加书签"
+  },
+  "bookmarkModifyTip": {
+    "message": "为此标签页修改书签"
+  },
+  "bookmarkTitlePlaceholder": {
+    "message": "请输入名称"
+  },
+  "bookmarkUrlPlaceholder": {
+    "message": "请输入网址"
+  },
+  "bookmarkFolderPlaceholder": {
+    "message": "请输入文件夹名称"
+  },
+  "bookmarkRestoreText": {
+    "message": "恢复"
+  },
+  "bookmarkRestoreNameTip": {
+    "message": "恢复原名称"
+  },
+  "bookmarkRestoreUrlTip": {
+    "message": "恢复原网址"
+  },
+  "bookmarkNewFolderText": {
+    "message": "新建文件夹"
+  },
+  "bookmarkSaveText": {
+    "message": "保存"
+  },
+  "bookmarkRemoveText": {
+    "message": "移除"
+  },
+  "bookmarkOkText": {
+    "message": "确定"
+  },
+  "bookmarkCancelText": {
+    "message": "取消"
+  },
+  "bookmarkErrorUpdateText": {
+    "message": "无法更新书签"
+  },
+  "bookmarkErrorMoveText": {
+    "message": "无法移动书签"
+  },
+  "bookmarkErrorCreateFolderText": {
+    "message": "无法创建文件夹"
+  },
+  "bookmarkSuccessMoveToNewFolderText": {
+    "message": "已自动将书签移动至新建文件夹"
+  },
+  "bookmarkErrorMoveToNewFolderText": {
+    "message": "无法自动将书签移动至新建文件夹"
+  }
+}

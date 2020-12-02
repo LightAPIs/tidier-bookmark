@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "author": "pana",
+  "homepage_url": "https://www.sailboatweb.com",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "icons": {
+    "16": "icons/app/icon-16.png",
+    "19": "icons/app/icon-19.png",
+    "24": "icons/app/icon-24.png",
+    "32": "icons/app/icon-32.png",
+    "48": "icons/app/icon-48.png",
+    "96": "icons/app/icon-96.png",
+    "128": "icons/app/icon-128.png"
+  },
+  "permissions": ["bookmarks", "activeTab"],
+  "options_page": "options.html",
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/app/icon-16.png",
+      "19": "icons/app/icon-19.png",
+      "24": "icons/app/icon-24.png",
+      "32": "icons/app/icon-32.png",
+      "48": "icons/app/icon-48.png",
+      "96": "icons/app/icon-96.png",
+      "128": "icons/app/icon-128.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src * chrome:; connect-src * blob:; object-src 'none';"
+}

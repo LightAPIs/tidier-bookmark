@@ -1,0 +1,8 @@
+{
+  "extensionName": {
+    "message": "Tidier bookmark"
+  },
+  "extensionDescription": {
+    "message": "Modify bookmark names in batches according to custom rules"
+  }
+}
