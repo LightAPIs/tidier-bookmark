@@ -202,10 +202,8 @@ export default {
     },
     urlChange(e) {
       const { value } = e.target;
-      const url = value.replace(/^\s*|\s*$/g, '');
-      if (url) {
-        this.url = url;
-      }
+      // 若置为空，后续保存时将采用原网址
+      this.url = value;
     },
     newFolderNameChange(e) {
       const { value } = e.target;
@@ -279,7 +277,6 @@ export default {
         res => {
           if (res) {
             // 更新文件夹树
-
             chrome.bookmarks.getTree(arr => {
               this.treeData = TraversalArray(arr[0].children);
             });
