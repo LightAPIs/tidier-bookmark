@@ -1,2 +1,7 @@
+# vscode env
 # folder
 .vscode
+
+# file
+jsconfig.json
+tsconfig.json

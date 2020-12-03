@@ -28,7 +28,7 @@ const tools = {
   debounce(func, delay, immediate = false) {
     let result;
 
-    let debounced = function(...args) {
+    const debounced = function(...args) {
       tools.debounceTimer && clearTimeout(tools.debounceTimer);
       if (immediate) {
         /** 如果已经执行过了，不再执行 */
@@ -67,8 +67,8 @@ const tools = {
   throttle(func, delay, options = {}) {
     let that, result;
 
-    let throttled = function(...args) {
-      let now = Date.now();
+    const throttled = function(...args) {
+      const now = Date.now();
 
       if (!tools.throttlePrevious && options.leading === false) {
         // 禁用第一次执行
@@ -76,7 +76,7 @@ const tools = {
       }
 
       /** 下次触发 func 剩余的时间 */
-      let remaining = delay - (now - tools.throttlePrevious);
+      const remaining = delay - (now - tools.throttlePrevious);
       that = this;
       // 如果没有剩余的时间了或者改了系统时间
       if (remaining <= 0 || remaining > delay) {

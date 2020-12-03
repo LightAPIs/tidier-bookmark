@@ -4,13 +4,13 @@
  * Syntactic sugar
  */
 const ui = {
-  $: function(id) {
+  $(id) {
     return document.getElementById(id);
   },
-  create: function(tag) {
+  create(tag) {
     return document.createElement(tag);
   },
-  get: function(...arg) {
+  get(...arg) {
     return chrome.i18n.getMessage(...arg);
   },
 };
