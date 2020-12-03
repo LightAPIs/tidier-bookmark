@@ -1,17 +1,15 @@
 import Vue from 'vue';
-// import router from './router';
 import 'arrive';
 import ui from '../commons/ui';
 import tools from '../commons/tools';
 import App from './App/App';
-import { Row, Col, Space, Button, Input, Icon, ConfigProvider, TreeSelect, Empty, message, Modal } from 'ant-design-vue';
+import { Row, Col, Space, Button, Input, ConfigProvider, TreeSelect, Empty, message, Modal } from 'ant-design-vue';
 
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Space);
 Vue.use(Button);
 Vue.use(Input);
-Vue.use(Icon);
 Vue.use(ConfigProvider);
 Vue.use(TreeSelect);
 Vue.use(Empty);
@@ -28,11 +26,10 @@ Vue.directive('focus', {
 
 new Vue({
   el: '#popup-app',
-  // router,
   components: {
     App,
   },
-  render: function(h) {
+  render(h) {
     return h(App);
   },
 });

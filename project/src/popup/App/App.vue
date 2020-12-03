@@ -67,7 +67,12 @@
                 {{ $ui.get('bookmarkNewFolderText') }}
               </a-button>
             </a-col>
-            <a-col :span="4" :offset="10" class="bookmarks-center-button">
+            <a-col :span="4" class="bookmarks-center-button">
+              <a-button icon="setting" @click="options">
+                {{ $ui.get('bookmarkOptionsText') }}
+              </a-button>
+            </a-col>
+            <a-col :span="4" :offset="6" class="bookmarks-center-button">
               <a-button type="primary" @click="saveBookmark">
                 {{ $ui.get('bookmarkSaveText') }}
               </a-button>
@@ -267,6 +272,11 @@ export default {
     },
     newFolderEnterKey() {
       this.newFolderOk();
+    },
+    options() {
+      chrome.tabs.create({
+        url: '/options.html',
+      });
     },
     newFolderOk() {
       chrome.bookmarks.create(

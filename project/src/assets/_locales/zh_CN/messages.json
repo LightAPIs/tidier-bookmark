@@ -50,6 +50,9 @@
   "bookmarkNewFolderText": {
     "message": "新建文件夹"
   },
+  "bookmarkOptionsText": {
+    "message": "选项"
+  },
   "bookmarkSaveText": {
     "message": "保存"
   },
