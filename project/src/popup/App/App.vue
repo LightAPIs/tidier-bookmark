@@ -1,47 +1,47 @@
 <template>
-  <div id="popup-app" class="popup-full-height">
+  <div id="popup-app">
     <a-config-provider :auto-insert-space-in-button="false">
-      <div class="bookmarks-add-module container">
+      <div class="container">
         <a-space direction="vertical" style="width: 100%;">
-          <div class="bookmarks-add-heading">
+          <div class="heading">
             {{ existed ? $ui.get('bookmarkModifyTitle') : $ui.get('bookmarkAddedTitle') }}
           </div>
           <a-row>
-            <a-col :span="4" class="bookmarks-add-label">
+            <a-col :span="4" class="label">
               {{ $ui.get('bookmarkOriginalNameLabel') }}
             </a-col>
-            <a-col :span="19" class="bookmarks-add-original-title" :title="originalName">
+            <a-col :span="19" class="original-title" :title="originalName">
               {{ originalName }}
             </a-col>
           </a-row>
           <a-row type="flex">
-            <a-col flex="80px" class="bookmarks-add-label">
+            <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkNameLabel') }}
             </a-col>
             <a-col :flex="21">
-              <a-input :placeholder="$ui.get('bookmarkTitlePlaceholder')" class="bookmarks-add-input" :value="name" @change="nameChange" />
+              <a-input :placeholder="$ui.get('bookmarkTitlePlaceholder')" class="input" :value="name" @change="nameChange" />
             </a-col>
-            <a-col :flex="4" class="bookmarks-center-button">
+            <a-col :flex="4" class="center-button">
               <a-button :title="$ui.get('bookmarkRestoreNameTip')" @click="restoreName">
                 {{ $ui.get('bookmarkRestoreText') }}
               </a-button>
             </a-col>
           </a-row>
           <a-row type="flex">
-            <a-col flex="80px" class="bookmarks-add-label">
+            <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkUrlLabel') }}
             </a-col>
             <a-col :flex="21">
-              <a-input :placeholder="$ui.get('bookmarkUrlPlaceholder')" class="bookmarks-add-input" :value="url" @change="urlChange" />
+              <a-input :placeholder="$ui.get('bookmarkUrlPlaceholder')" class="input" :value="url" @change="urlChange" />
             </a-col>
-            <a-col :flex="4" class="bookmarks-center-button">
+            <a-col :flex="4" class="center-button">
               <a-button :title="$ui.get('bookmarkRestoreUrlTip')" @click="restoreUrl">
                 {{ $ui.get('bookmarkRestoreText') }}
               </a-button>
             </a-col>
           </a-row>
           <a-row type="flex">
-            <a-col flex="80px" class="bookmarks-add-label">
+            <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkFolderLabel') }}
             </a-col>
             <a-col flex="auto">
@@ -61,23 +61,23 @@
             </a-col>
           </a-row>
           <a-empty style="height: 350px;" />
-          <a-row class="bookmarks-footer">
-            <a-col :span="6" class="bookmarks-center-button">
+          <a-row class="footer">
+            <a-col :span="6" class="center-button">
               <a-button @click="newFolder">
                 {{ $ui.get('bookmarkNewFolderText') }}
               </a-button>
             </a-col>
-            <a-col :span="4" class="bookmarks-center-button">
+            <a-col :span="4" class="center-button">
               <a-button icon="setting" @click="options">
                 {{ $ui.get('bookmarkOptionsText') }}
               </a-button>
             </a-col>
-            <a-col :span="4" :offset="6" class="bookmarks-center-button">
+            <a-col :span="4" :offset="6" class="center-button">
               <a-button type="primary" @click="saveBookmark">
                 {{ $ui.get('bookmarkSaveText') }}
               </a-button>
             </a-col>
-            <a-col :span="4" class="bookmarks-center-button">
+            <a-col :span="4" class="center-button">
               <a-button type="danger" @click="removeBookmark">
                 {{ $ui.get('bookmarkRemoveText') }}
               </a-button>
@@ -321,40 +321,35 @@ export default {
 #popup-app {
   overflow: hidden;
   width: 500px;
-}
-.popup-default-height {
-  height: 240px;
-}
-.popup-full-height {
   height: 600px;
-}
-.bookmarks-add-heading {
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 5px 0px 0px 10px;
-}
-.bookmarks-add-label {
-  padding-left: 15px;
-}
-.bookmarks-add-original-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.bookmarks-add-input {
-  width: 99%;
-}
-.bookmarks-center-button {
-  text-align: center;
-}
-.bookmarks-add-folder-select {
-  background-color: @select-folder-background-color;
-  height: 395px;
-  margin: 0px 10px 5px 10px;
-  overflow: auto;
-  border: 2px solid @select-folder-border-color;
-}
-.bookmarks-footer {
-  margin-top: 5px;
+  .heading {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 0px 0px 10px;
+  }
+  .label {
+    padding-left: 15px;
+  }
+  .original-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .input {
+    width: 99%;
+  }
+  .center-button {
+    text-align: center;
+  }
+  .folder-select {
+    background-color: @select-folder-background-color;
+    height: 395px;
+    margin: 0px 10px 5px 10px;
+    overflow: auto;
+    border: 2px solid @select-folder-border-color;
+  }
+  .footer {
+    margin-top: 5px;
+  }
 }
 </style>
