@@ -39,6 +39,39 @@ chrome.tabs.onActivated.addListener(activeInfo => {
         currentWindow: true,
       },
       tabs => {
+        // Tab.pendingUrl since Chrome 79
+        if (tabs.length > 0 && (tabs[0].url || tabs[0].pendingUrl)) {
+          const { url, pendingUrl } = tabs[0];
+          // *注: 即使监听了 pendingUrl，还是可能会存在由于重定向(如 "http://" => "https://")而导致判定有误的情况，*
+          // *所以依旧需要 tabs.onUpdated Events*
+          chrome.bookmarks.search(
+            {
+              url: url || pendingUrl,
+            },
+            res => {
+              if (res.length > 0) {
+                shortcuts.addBadge();
+              } else {
+                shortcuts.removeBadge();
+              }
+            }
+          );
+        } else {
+          // 没有检索到标签页时，将按钮提示恢复原状
+          shortcuts.resetIconState();
+        }
+      }
+    );
+});
+
+chrome.tabs.onUpdated.addListener((_tabId, _changeInfo, tab) => {
+  tab &&
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      tabs => {
         if (tabs.length > 0 && tabs[0].url) {
           const { url } = tabs[0];
           chrome.bookmarks.search(
@@ -53,9 +86,6 @@ chrome.tabs.onActivated.addListener(activeInfo => {
               }
             }
           );
-        } else {
-          // 没有检索到标签页时，将按钮提示恢复原状
-          shortcuts.resetIconState();
         }
       }
     );
