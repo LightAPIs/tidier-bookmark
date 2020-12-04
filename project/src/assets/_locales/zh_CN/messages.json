@@ -3,7 +3,7 @@
     "message": "Tidier bookmark"
   },
   "extensionDescription": {
-    "message": "在添加书签时可以自动根据定义的规则修改书签名称，以获得更整洁的书签，同时还提供了批量修改已存在的书签名称功能。"
+    "message": "在添加书签时可以自动根据定义的正则表达式规则修改书签名称，以获得更整洁的书签，同时还提供了批量修改已存在的书签名称功能。"
   },
   "bookmarkNameLabel": {
     "message": "名称"
@@ -79,5 +79,17 @@
   },
   "bookmarkErrorMoveToNewFolderText": {
     "message": "无法自动将书签移动至新建文件夹"
+  },
+  "optionsGeneralSettingsText": {
+    "message": "通用设置"
+  },
+  "optionsRuleListText": {
+    "message": "规则列表"
+  },
+  "optionsBatchOperationText": {
+    "message": "批量操作"
+  },
+  "optionsAboutText": {
+    "message": "关于插件"
   }
 }
