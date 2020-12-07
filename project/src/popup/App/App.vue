@@ -212,7 +212,7 @@ export default {
     },
     newFolderNameChange(e) {
       const { value } = e.target;
-      const newFolderName = value.replace(/^\s*|\s*$/g, '');
+      const newFolderName = this.$ui.removeLTSpaces(value);
       if (newFolderName) {
         this.newFolderName = newFolderName;
       }
