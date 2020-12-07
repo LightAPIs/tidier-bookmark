@@ -96,7 +96,7 @@
             :placeholder="$ui.get('bookmarkFolderPlaceholder')"
             :value="newFolderName"
             @change="newFolderNameChange"
-            @keyup.enter.stop.prevent="newFolderEnterKey"
+            @pressEnter="newFolderPressEnter"
           />
         </a-modal>
       </div>
@@ -270,7 +270,7 @@ export default {
       this.newFolderName = this.$ui.get('bookmarkNewFolderText');
       this.modalVisible = true;
     },
-    newFolderEnterKey() {
+    newFolderPressEnter() {
       this.newFolderOk();
     },
     options() {
