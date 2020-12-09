@@ -14,7 +14,7 @@
               {{ originalName }}
             </a-col>
           </a-row>
-          <a-row type="flex">
+          <a-row type="flex" class="align-items-center">
             <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkNameLabel') }}
             </a-col>
@@ -27,7 +27,7 @@
               </a-button>
             </a-col>
           </a-row>
-          <a-row type="flex">
+          <a-row type="flex" class="align-items-center">
             <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkUrlLabel') }}
             </a-col>
@@ -40,7 +40,7 @@
               </a-button>
             </a-col>
           </a-row>
-          <a-row type="flex">
+          <a-row type="flex" class="align-items-center">
             <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkFolderLabel') }}
             </a-col>
@@ -326,6 +326,9 @@ export default {
     font-size: 1.2rem;
     font-weight: bold;
     padding: 5px 0px 0px 10px;
+  }
+  .align-items-center {
+    align-items: center;
   }
   .label {
     padding-left: 15px;
