@@ -91,5 +91,131 @@
   },
   "optionsAboutText": {
     "message": "关于插件"
+  },
+  "rulesTableEnableText": {
+    "message": "启用"
+  },
+  "rulesTableIndexText": {
+    "message": "索引"
+  },
+  "rulesTableNameText": {
+    "message": "名称"
+  },
+  "rulesTableOperationText": {
+    "message": "操作"
+  },
+  "rulesHandleAddText": {
+    "message": "添加"
+  },
+  "rulesHandleDefaultNameText": {
+    "message": "规则$count$",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "rulesOperationDeleteText": {
+    "message": "删除"
+  },
+  "rulesDeleteTip": {
+    "message": "确认删除吗？"
+  },
+  "rulesOperationEditText": {
+    "message": "编辑"
+  },
+  "rulesEditModalTitle": {
+    "message": "编辑规则"
+  },
+  "rulesEditModalAddTitle": {
+    "message": "添加规则"
+  },
+  "rulesEditPatternLabel": {
+    "message": "模式$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "rulesEditPatternMessage": {
+    "message": "请输入模式"
+  },
+  "rulesEditFlagsLabel": {
+    "message": "标志$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "rulesEditFlagsGTip": {
+    "message": "全局搜索"
+  },
+  "rulesEditFlagsITip": {
+    "message": "不区分大小写搜索"
+  },
+  "rulesEditFlagsUTip": {
+    "message": "使用 unicode 码的模式进行匹配"
+  },
+  "rulesEditReplacementLabel": {
+    "message": "替换值$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "rulesEditReplacementHelp": {
+    "message": "支持使用括号的子字符串匹配，如:$$&,$$1,$$2..."
+  },
+  "rulesEditReplacementPlaceholder": {
+    "message": "空白时表示清除匹配内容"
+  },
+  "rulesEditIndexHelp": {
+    "message": "同时启用多条规则时，索引靠前的规则最先被应用"
+  },
+  "rulesEditTestLabel": {
+    "message": "测试内容$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "rulesEditTestHelp": {
+    "message": "仅用于测试替换结果，不会保存内容"
+  },
+  "rulesEditTestResultLabel": {
+    "message": "测试结果$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "rulesEditTestText": {
+    "message": "测试"
+  },
+  "rulesEditConfirmText": {
+    "message": "确认"
+  },
+  "rulesTestModalTitle": {
+    "message": "测试规则"
+  },
+  "rulesTestMatchLabel": {
+    "message": "匹配规则$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
   }
 }

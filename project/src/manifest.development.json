@@ -15,7 +15,7 @@
     "96": "icons/app/icon-96.png",
     "128": "icons/app/icon-128.png"
   },
-  "permissions": ["bookmarks", "tabs"],
+  "permissions": ["bookmarks", "tabs", "storage"],
   "options_page": "options.html",
   "background": {
     "page": "background.html"
