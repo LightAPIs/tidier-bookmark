@@ -107,7 +107,7 @@
 <script>
 /**
  * 递归遍历输出文件夹树的方法
- * @param{Array} arr
+ * @param {Array} arr 数组值
  */
 function TraversalArray(arr) {
   return arr
