@@ -232,10 +232,12 @@ export default {
   methods: {
     handleAdd() {
       const { count } = this;
-      this.editModal.key = Date.now();
-      this.editModal.indexMax = count + 1;
-      this.editModal.add = true;
-      this.editModal.visible = true;
+      Object.assign(this.editModal, {
+        key: Date.now(),
+        indexMax: count + 1,
+        add: true,
+        visible: true,
+      });
       this.$nextTick(() => {
         this.form.setFieldsValue({
           name: this.$ui.get('rulesHandleDefaultNameText', (count + 1).toString()),
@@ -248,9 +250,11 @@ export default {
       });
     },
     handleTest() {
-      this.testModal.testResult = '';
-      this.testModal.tags = [];
-      this.testModal.visible = true;
+      Object.assign(this.testModal, {
+        testResult: '',
+        tags: [],
+        visible: true,
+      });
     },
     onSwitchChange(checked, event) {
       const { id } = event.target.dataset;
@@ -279,10 +283,12 @@ export default {
     handleEdit(record) {
       const { count } = this;
       const { name, pattern, flags, replacement, index, key } = record;
-      this.editModal.key = key;
-      this.editModal.indexMax = count;
-      this.editModal.add = false;
-      this.editModal.visible = true;
+      Object.assign(this.editModal, {
+        key,
+        indexMax: count,
+        add: false,
+        visible: true,
+      });
       this.$nextTick(() => {
         this.form.setFieldsValue({
           name,
@@ -368,8 +374,10 @@ export default {
           }
 
           this.setValue();
-          this.editModal.add = false;
-          this.editModal.visible = false;
+          Object.assign(this.editModal, {
+            add: false,
+            visible: false,
+          });
         }
       });
     },
@@ -400,8 +408,10 @@ export default {
         });
       }
 
-      this.testModal.testResult = result;
-      this.testModal.tags = matchArr;
+      Object.assign(this.testModal, {
+        testResult: result,
+        tags: matchArr,
+      });
     },
     /**
      * 存储数据的方法
