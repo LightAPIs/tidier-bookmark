@@ -1,6 +1,6 @@
 <template>
-  <div id="rules-component">
-    <a-config-provider :auto-insert-space-in-button="false">
+  <a-config-provider :auto-insert-space-in-button="false">
+    <div id="rules-component">
       <a-space class="btn-group">
         <a-button class="btn" @click="handleAdd">
           {{ $ui.get('rulesHandleAddText') }}
@@ -9,8 +9,6 @@
           {{ $ui.get('rulesEditTestText') }}
         </a-button>
       </a-space>
-    </a-config-provider>
-    <a-config-provider :auto-insert-space-in-button="false">
       <a-table :columns="columns" :data-source="dataSource">
         <template slot="enable" slot-scope="text, record">
           <a-switch :data-id="record.key" @change="onSwitchChange" :checked="record.enable" />
@@ -44,120 +42,116 @@
           </a-space>
         </template>
       </a-table>
-    </a-config-provider>
-    <a-modal
-      v-model="editModal.visible"
-      :title="editModal.add ? $ui.get('rulesEditModalAddTitle') : $ui.get('rulesEditModalTitle')"
-      :footer="null"
-      closeable
-    >
-      <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 18 }" class="edit-modal">
-        <a-form-item :label="$ui.get('rulesTableNameText')">
-          <a-input v-decorator="['name', { rules: [{ required: false }] }]" />
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesEditPatternLabel')">
-          <a-input v-decorator="['pattern', { rules: [{ required: true, message: $ui.get('rulesEditPatternMessage') }] }]" />
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesEditFlagsLabel')">
-          <a-checkbox-group v-decorator="['flags']" class="checkbox-group">
+      <a-modal
+        v-model="editModal.visible"
+        :title="editModal.add ? $ui.get('rulesEditModalAddTitle') : $ui.get('rulesEditModalTitle')"
+        :footer="null"
+        closeable
+      >
+        <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 18 }" class="edit-modal">
+          <a-form-item :label="$ui.get('rulesTableNameText')">
+            <a-input v-decorator="['name', { rules: [{ required: false }] }]" />
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesEditPatternLabel')">
+            <a-input v-decorator="['pattern', { rules: [{ required: true, message: $ui.get('rulesEditPatternMessage') }] }]" />
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesEditFlagsLabel')">
+            <a-checkbox-group v-decorator="['flags']" class="checkbox-group">
+              <a-row>
+                <a-col :span="8">
+                  <a-tooltip :title="$ui.get('rulesEditFlagsGTip')">
+                    <a-checkbox value="g">g</a-checkbox>
+                  </a-tooltip>
+                </a-col>
+                <a-col :span="8">
+                  <a-tooltip :title="$ui.get('rulesEditFlagsITip')">
+                    <a-checkbox value="i">i</a-checkbox>
+                  </a-tooltip>
+                </a-col>
+                <a-col :span="8">
+                  <a-tooltip :title="$ui.get('rulesEditFlagsUTip')">
+                    <a-checkbox value="u">u</a-checkbox>
+                  </a-tooltip>
+                </a-col>
+              </a-row>
+            </a-checkbox-group>
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesEditReplacementLabel')" :help="$ui.get('rulesEditReplacementHelp')">
+            <a-input
+              v-decorator="['replacement', { rules: [{ required: false }] }]"
+              :placeholder="$ui.get('rulesEditReplacementPlaceholder')"
+            />
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesTableIndexText')" :help="$ui.get('rulesEditIndexHelp')">
+            <a-input-number v-decorator="['index']" :min="1" :max="editModal.indexMax" :step="1" />
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesEditTestLabel')" :help="$ui.get('rulesEditTestHelp')">
             <a-row>
-              <a-col :span="8">
-                <a-tooltip :title="$ui.get('rulesEditFlagsGTip')">
-                  <a-checkbox value="g">g</a-checkbox>
-                </a-tooltip>
+              <a-col :span="17">
+                <a-input v-decorator="['test']" />
               </a-col>
-              <a-col :span="8">
-                <a-tooltip :title="$ui.get('rulesEditFlagsITip')">
-                  <a-checkbox value="i">i</a-checkbox>
-                </a-tooltip>
-              </a-col>
-              <a-col :span="8">
-                <a-tooltip :title="$ui.get('rulesEditFlagsUTip')">
-                  <a-checkbox value="u">u</a-checkbox>
-                </a-tooltip>
-              </a-col>
-            </a-row>
-          </a-checkbox-group>
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesEditReplacementLabel')" :help="$ui.get('rulesEditReplacementHelp')">
-          <a-input
-            v-decorator="['replacement', { rules: [{ required: false }] }]"
-            :placeholder="$ui.get('rulesEditReplacementPlaceholder')"
-          />
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesTableIndexText')" :help="$ui.get('rulesEditIndexHelp')">
-          <a-input-number v-decorator="['index']" :min="1" :max="editModal.indexMax" :step="1" />
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesEditTestLabel')" :help="$ui.get('rulesEditTestHelp')">
-          <a-row>
-            <a-col :span="17">
-              <a-input v-decorator="['test']" />
-            </a-col>
-            <a-col :span="6" :offset="1">
-              <a-config-provider :auto-insert-space-in-button="false">
+              <a-col :span="6" :offset="1">
                 <a-button @click="onTest">
                   {{ $ui.get('rulesEditTestText') }}
                 </a-button>
-              </a-config-provider>
-            </a-col>
-          </a-row>
-        </a-form-item>
-        <a-form-item :label="$ui.get('rulesEditTestResultLabel')">
-          <a-input v-decorator="['testResult']" />
-        </a-form-item>
-        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-          <a-config-provider :auto-insert-space-in-button="false">
+              </a-col>
+            </a-row>
+          </a-form-item>
+          <a-form-item :label="$ui.get('rulesEditTestResultLabel')">
+            <a-input v-decorator="['testResult']" />
+          </a-form-item>
+          <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
             <a-button type="primary" @click="onConfirm">
               {{ $ui.get('rulesEditConfirmText') }}
             </a-button>
-          </a-config-provider>
-        </a-form-item>
-      </a-form>
-    </a-modal>
-    <a-modal v-model="testModal.visible" :title="$ui.get('rulesTestModalTitle')" :footer="null" closeable>
-      <div class="test-modal">
-        <a-space direction="vertical" style="width: 100%">
-          <a-row type="flex" class="align-items-center">
-            <a-col flex="80px" class="label">
-              {{ $ui.get('rulesEditTestLabel') }}
-            </a-col>
-            <a-col :flex="21">
-              <a-input class="input" :value="testModal.test" @change="testChange" @pressEnter="testPressEnter" />
-            </a-col>
-            <a-col :flex="4" class="center-button">
-              <a-button @click="testClick">
-                {{ $ui.get('rulesEditTestText') }}
-              </a-button>
-            </a-col>
-          </a-row>
-          <a-row type="flex" class="align-items-center">
-            <a-col flex="80px" class="label">
-              {{ $ui.get('rulesEditTestResultLabel') }}
-            </a-col>
-            <a-col flex="auto">
-              <a-input class="input" :value="testModal.testResult" />
-            </a-col>
-          </a-row>
-          <a-row type="flex" class="align-items-center">
-            <a-col flex="80px" class="label">
-              {{ $ui.get('rulesTestMatchLabel') }}
-            </a-col>
-            <a-col flex="auto">
-              <div class="tags">
-                <template v-for="tag in testModal.tags">
-                  <a-tooltip :key="tag.index" :title="tag.name">
-                    <a-tag :key="tag.index" color="blue">
-                      {{ tag.index }}
-                    </a-tag>
-                  </a-tooltip>
-                </template>
-              </div>
-            </a-col>
-          </a-row>
-        </a-space>
-      </div>
-    </a-modal>
-  </div>
+          </a-form-item>
+        </a-form>
+      </a-modal>
+      <a-modal v-model="testModal.visible" :title="$ui.get('rulesTestModalTitle')" :footer="null" closeable>
+        <div class="test-modal">
+          <a-space direction="vertical" style="width: 100%">
+            <a-row type="flex" class="align-items-center">
+              <a-col flex="80px" class="label">
+                {{ $ui.get('rulesEditTestLabel') }}
+              </a-col>
+              <a-col :flex="21">
+                <a-input class="input" :value="testModal.test" @change="testChange" @pressEnter="testPressEnter" />
+              </a-col>
+              <a-col :flex="4" class="center-button">
+                <a-button @click="testClick">
+                  {{ $ui.get('rulesEditTestText') }}
+                </a-button>
+              </a-col>
+            </a-row>
+            <a-row type="flex" class="align-items-center">
+              <a-col flex="80px" class="label">
+                {{ $ui.get('rulesEditTestResultLabel') }}
+              </a-col>
+              <a-col flex="auto">
+                <a-input class="input" :value="testModal.testResult" />
+              </a-col>
+            </a-row>
+            <a-row type="flex" class="align-items-center">
+              <a-col flex="80px" class="label">
+                {{ $ui.get('rulesTestMatchLabel') }}
+              </a-col>
+              <a-col flex="auto">
+                <div class="tags">
+                  <template v-for="tag in testModal.tags">
+                    <a-tooltip :key="tag.index" :title="tag.name">
+                      <a-tag :key="tag.index" color="blue">
+                        {{ tag.index }}
+                      </a-tag>
+                    </a-tooltip>
+                  </template>
+                </div>
+              </a-col>
+            </a-row>
+          </a-space>
+        </div>
+      </a-modal>
+    </div>
+  </a-config-provider>
 </template>
 
 <script>
