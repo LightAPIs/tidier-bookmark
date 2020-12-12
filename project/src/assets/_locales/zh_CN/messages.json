@@ -9,10 +9,22 @@
     "message": "名称"
   },
   "bookmarkOriginalNameLabel": {
-    "message": "原名称"
+    "message": "原名称$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
   },
   "bookmarkUrlLabel": {
-    "message": "网址"
+    "message": "网址$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
   },
   "bookmarkFolderLabel": {
     "message": "文件夹"
@@ -217,5 +229,23 @@
         "example": ":"
       }
     }
+  },
+  "batchPreviewText": {
+    "message": "预览"
+  },
+  "batchEffectText": {
+    "message": "应用"
+  },
+  "batchNewNameLabel": {
+    "message": "新名称$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "batchCompletionText": {
+    "message": "批量替换完成！"
   }
 }

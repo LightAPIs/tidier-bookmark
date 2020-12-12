@@ -15,7 +15,7 @@
     "96": "icons/app/icon-96.png",
     "128": "icons/app/icon-128.png"
   },
-  "permissions": ["bookmarks", "tabs", "storage"],
+  "permissions": ["bookmarks", "tabs", "storage", "chrome://favicon/*"],
   "options_page": "options.html",
   "background": {
     "page": "background.html"
