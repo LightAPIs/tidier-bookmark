@@ -4,39 +4,39 @@ module.exports = {
   types: [
     {
       value: 'feat',
-      name: 'feat:     新功能 feature',
+      name: 'feat:     新功能(new feature)',
     },
     {
       value: 'fix',
-      name: 'fix:      修复 bug',
+      name: 'fix:      修复错误(bug fix)',
     },
     {
       value: 'docs',
-      name: 'docs:     文档或注释变更',
+      name: 'docs:     仅文档或注释变更',
     },
     {
       value: 'style',
-      name: 'style:    代码格式(不影响代码运行的变动)',
+      name: 'style:    代码格式(不影响代码含义和运行的变动)',
     },
     {
       value: 'refactor',
-      name: 'refactor: 重构(既不是增加新功能，也不是修复 bug)',
+      name: 'refactor: 重构(既不是增加新功能，也不是修复错误)',
     },
     {
       value: 'perf',
-      name: 'perf:     性能优化',
+      name: 'perf:     性能优化(提高性能的代码更改)',
     },
     {
       value: 'test',
-      name: 'test:     增加测试',
+      name: 'test:     增加缺失的测试',
     },
     {
       value: 'chore',
-      name: 'chore:    构建过程或辅助工具的变动',
+      name: 'chore:    构建过程或辅助工具和库(如文档生成)的变动',
     },
     {
       value: 'revert',
-      name: 'revert:   回退',
+      name: 'revert:   回退(Revert to a commit)',
     },
     {
       value: 'build',
