@@ -10,6 +10,22 @@
         </a-button>
       </a-space>
       <a-table :columns="columns" :data-source="dataSource">
+        <div slot="filterDropdown" slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters }" class="filter-dropdown">
+          <a-input
+            v-ant-ref="c => (searchInput = c)"
+            class="filter-input"
+            :value="selectedKeys[0]"
+            @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+            @pressEnter="() => confirm()"
+          />
+          <a-button type="primary" icon="search" size="small" class="filter-btn search-btn" @click="() => confirm()">
+            {{ $ui.get('rulesFilterSearchText') }}
+          </a-button>
+          <a-button size="small" @click="() => clearFilters()" class="filter-btn">
+            {{ $ui.get('rulesFilterResetText') }}
+          </a-button>
+        </div>
+        <a-icon slot="filterIcon" slot-scope="filtered" type="search" :class="{ filtered: filtered }" />
         <template slot="enable" slot-scope="text, record">
           <a-switch :data-id="record.key" @change="onSwitchChange" :checked="record.enable" />
         </template>
@@ -155,46 +171,6 @@
 </template>
 
 <script>
-import ui from '../commons/ui';
-const columns = [
-  {
-    title: ui.get('rulesTableEnableText'),
-    dataIndex: 'enable',
-    key: 'enable',
-    width: 100,
-    align: 'center',
-    scopedSlots: {
-      customRender: 'enable',
-    },
-  },
-  {
-    title: ui.get('rulesTableIndexText'),
-    dataIndex: 'index',
-    key: 'index',
-    width: 100,
-    align: 'center',
-    sorter: (a, b) => a.index - b.index,
-    defaultSortOrder: 'ascend',
-  },
-  {
-    title: ui.get('rulesTableNameText'),
-    dataIndex: 'name',
-    key: 'name',
-    scopedSlots: {
-      customRender: 'name',
-    },
-  },
-  {
-    title: ui.get('rulesTableOperationText'),
-    dataIndex: 'operation',
-    key: 'operation',
-    width: '200px',
-    scopedSlots: {
-      customRender: 'operation',
-    },
-  },
-];
-
 const editModal = {
   visible: false,
   add: false,
@@ -211,13 +187,65 @@ export default {
   name: 'Rules',
   data() {
     return {
-      columns,
+      columns: [
+        {
+          title: this.$ui.get('rulesTableEnableText'),
+          dataIndex: 'enable',
+          key: 'enable',
+          width: 100,
+          align: 'center',
+          scopedSlots: {
+            customRender: 'enable',
+          },
+        },
+        {
+          title: this.$ui.get('rulesTableIndexText'),
+          dataIndex: 'index',
+          key: 'index',
+          width: 100,
+          align: 'center',
+          sorter: (a, b) => a.index - b.index,
+          defaultSortOrder: 'ascend',
+        },
+        {
+          title: this.$ui.get('rulesTableNameText'),
+          dataIndex: 'name',
+          key: 'name',
+          scopedSlots: {
+            customRender: 'name',
+            filterDropdown: 'filterDropdown',
+            filterIcon: 'filterIcon',
+          },
+          onFilter: (value, record) =>
+            record.name
+              .toString()
+              .toLowerCase()
+              .includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
+            }
+          },
+        },
+        {
+          title: this.$ui.get('rulesTableOperationText'),
+          dataIndex: 'operation',
+          key: 'operation',
+          width: '200px',
+          scopedSlots: {
+            customRender: 'operation',
+          },
+        },
+      ],
       dataSource: [],
       editModal,
       testModal,
       form: this.$form.createForm(this, {
         name: 'edit',
       }),
+      searchInput: null,
     };
   },
   computed: {
@@ -392,14 +420,12 @@ export default {
       if (result) {
         dataSource.forEach(data => {
           const { enable, name, pattern, flags, replacement, index } = data;
-          if (enable) {
-            if (this.$ui.regTest(pattern, flags, result)) {
-              matchArr.push({
-                name: name || pattern,
-                index,
-              });
-              result = this.$ui.regReplace(pattern, flags, result, replacement);
-            }
+          if (enable && this.$ui.regTest(pattern, flags, result)) {
+            matchArr.push({
+              name: name || pattern,
+              index,
+            });
+            result = this.$ui.regReplace(pattern, flags, result, replacement);
           }
         });
       }
@@ -425,7 +451,7 @@ export default {
   },
   created() {
     chrome.storage.local.get('rules', result => {
-      this.dataSource = result.rules;
+      this.dataSource = result.rules || [];
     });
   },
 };
@@ -467,6 +493,23 @@ export default {
       background-color: @scrollbar-thumb-background-color;
       border-radius: 5px;
     }
+  }
+}
+.filter-dropdown {
+  padding: 8px;
+  .filter-input {
+    width: 240px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .filter-btn {
+    width: 90px;
+  }
+  .search-btn {
+    margin-right: 8px;
+  }
+  .filtered {
+    color: @filtered-color;
   }
 }
 </style>
