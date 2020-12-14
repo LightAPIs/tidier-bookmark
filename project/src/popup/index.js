@@ -3,7 +3,7 @@ import 'arrive';
 import ui from '../commons/ui';
 import tools from '../commons/tools';
 import App from './App/App';
-import { Row, Col, Space, Button, Input, ConfigProvider, TreeSelect, Empty, message, Modal } from 'ant-design-vue';
+import { Row, Col, Space, Button, Input, ConfigProvider, TreeSelect, Empty, message, Modal, Table, Tooltip, Switch } from 'ant-design-vue';
 
 Vue.use(Row);
 Vue.use(Col);
@@ -14,6 +14,9 @@ Vue.use(ConfigProvider);
 Vue.use(TreeSelect);
 Vue.use(Empty);
 Vue.use(Modal);
+Vue.use(Table);
+Vue.use(Tooltip);
+Vue.use(Switch);
 Vue.prototype.$message = message;
 Vue.prototype.$ui = ui;
 Vue.config.productionTip = false;

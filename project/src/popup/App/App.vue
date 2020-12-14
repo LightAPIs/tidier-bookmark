@@ -6,22 +6,27 @@
           <div class="heading">
             {{ existed ? $ui.get('bookmarkModifyTitle') : $ui.get('bookmarkAddedTitle') }}
           </div>
-          <a-row>
-            <a-col :span="4" class="label">
+          <a-row type="flex" class="align-items-center">
+            <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkOriginalNameLabel') }}
             </a-col>
-            <a-col :span="19" class="original-title" :title="originalName">
+            <a-col flex="21" class="original-title" :title="originalName">
               {{ originalName }}
+            </a-col>
+            <a-col flex="4" class="top-button">
+              <a-button :title="$ui.get('bookmarkRenameTip')" @click="onRename">
+                {{ $ui.get('bookmarkRenameText') }}
+              </a-button>
             </a-col>
           </a-row>
           <a-row type="flex" class="align-items-center">
             <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkNameLabel') }}
             </a-col>
-            <a-col :flex="21">
-              <a-input :placeholder="$ui.get('bookmarkTitlePlaceholder')" class="input" :value="name" @change="nameChange" />
+            <a-col flex="21">
+              <a-input :placeholder="$ui.get('bookmarkTitlePlaceholder')" :value="name" @change="nameChange" />
             </a-col>
-            <a-col :flex="4" class="center-button">
+            <a-col flex="4" class="top-button">
               <a-button :title="$ui.get('bookmarkRestoreNameTip')" @click="restoreName">
                 {{ $ui.get('bookmarkRestoreText') }}
               </a-button>
@@ -31,10 +36,10 @@
             <a-col flex="80px" class="label">
               {{ $ui.get('bookmarkUrlLabel') }}
             </a-col>
-            <a-col :flex="21">
-              <a-input :placeholder="$ui.get('bookmarkUrlPlaceholder')" class="input" :value="url" @change="urlChange" />
+            <a-col flex="21">
+              <a-input :placeholder="$ui.get('bookmarkUrlPlaceholder')" :value="url" @change="urlChange" />
             </a-col>
-            <a-col :flex="4" class="center-button">
+            <a-col flex="4" class="top-button">
               <a-button :title="$ui.get('bookmarkRestoreUrlTip')" @click="restoreUrl">
                 {{ $ui.get('bookmarkRestoreText') }}
               </a-button>
@@ -60,7 +65,32 @@
               ></a-tree-select>
             </a-col>
           </a-row>
-          <a-empty style="height: 350px;" />
+          <a-table
+            v-if="rulesVisible"
+            :columns="columns"
+            :data-source="dataSource"
+            class="full-height"
+            :scroll="{ y: 300 }"
+            size="small"
+            :pagination="false"
+          >
+            <template slot="enable" slot-scope="text, record">
+              <a-switch :data-id="record.key" @change="onSwitchChange" :checked="record.enable" size="small" />
+            </template>
+            <template slot="name" slot-scope="text, record">
+              <a-tooltip placement="topLeft" class="name">
+                <template slot="title">
+                  <p>{{ $ui.get('rulesEditPatternLabel', ': ') + record.pattern }}</p>
+                  <p>{{ $ui.get('rulesEditFlagsLabel', ': ') + record.flags.toString() }}</p>
+                  <p>{{ $ui.get('rulesEditReplacementLabel', ': ') + record.replacement }}</p>
+                </template>
+                <span class="rule-name" :class="{ match: matchArr.includes(record.index) }">
+                  {{ record.name || record.pattern }}
+                </span>
+              </a-tooltip>
+            </template>
+          </a-table>
+          <a-empty v-else class="full-height" />
           <a-row class="footer">
             <a-col :span="6" class="center-button">
               <a-button @click="newFolder">
@@ -105,6 +135,9 @@
 </template>
 
 <script>
+import ui from '../../commons/ui';
+import tools from '../../commons/tools';
+
 /**
  * 递归遍历输出文件夹树的方法
  * @param {Array} arr 数组值
@@ -137,59 +170,110 @@ const dataInfo = {
   folderId: '1',
   modalVisible: false,
   newFolderName: '',
+  rulesVisible: false,
+  columns: [
+    {
+      title: ui.get('rulesTableEnableText'),
+      dataIndex: 'enable',
+      key: 'enable',
+      width: 80,
+      align: 'center',
+      scopedSlots: {
+        customRender: 'enable',
+      },
+    },
+    {
+      title: ui.get('rulesTableIndexText'),
+      dataIndex: 'index',
+      key: 'index',
+      width: 80,
+      align: 'center',
+      sorter: (a, b) => a.index - b.index,
+      defaultSortOrder: 'ascend',
+    },
+    {
+      title: ui.get('rulesTableNameText'),
+      dataIndex: 'name',
+      key: 'name',
+      ellipsis: true,
+      scopedSlots: {
+        customRender: 'name',
+      },
+    },
+  ],
+  dataSource: [],
+  matchArr: [],
 };
 
-chrome.tabs.query(
-  {
-    active: true,
-    currentWindow: true,
-  },
-  tabs => {
-    if (tabs.length > 0 && tabs[0].url) {
-      let name = tabs[0].title;
-      let url = tabs[0].url;
-      dataInfo.originalName = name;
-      dataInfo.originalUrl = url;
-      dataInfo.url = url;
-      chrome.bookmarks.search(
-        {
-          url,
-        },
-        res => {
-          if (res.length > 0) {
-            dataInfo.id = res[0].id;
-            dataInfo.name = res[0].title;
-            dataInfo.existed = true;
-            dataInfo.folderId = res[0].parentId;
-          } else {
-            dataInfo.name = name;
-            dataInfo.existed = false;
-            // 查找最近添加的书签
-            chrome.bookmarks.getRecent(1, arr => {
-              if (arr.length > 0) {
-                dataInfo.folderId = arr[0].parentId;
-              } else {
-                dataInfo.folderId = 1;
-              }
+chrome.storage.local.get('rules', result => {
+  dataInfo.rulesVisible = true;
+  dataInfo.dataSource = result.rules || [];
 
-              // 默认直接添加书签
-              chrome.bookmarks.create(
-                {
-                  parentId: dataInfo.folderId,
-                  title: dataInfo.name,
-                  url: dataInfo.url,
-                },
-                newBookmark => {
-                  dataInfo.id = newBookmark.id;
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    tabs => {
+      if (tabs.length > 0 && tabs[0].url) {
+        let name = tabs[0].title,
+          url = tabs[0].url;
+        Object.assign(dataInfo, {
+          originalName: name,
+          originalUrl: url,
+          url,
+        });
+        chrome.bookmarks.search(
+          {
+            url,
+          },
+          res => {
+            if (res.length > 0) {
+              const { id, title, parentId } = res[0];
+              Object.assign(dataInfo, {
+                id,
+                name: title,
+                folderId: parentId,
+                existed: true,
+              });
+            } else {
+              dataInfo.dataSource.forEach(data => {
+                const { enable, pattern, flags, repalcement, index } = data;
+                if (enable && ui.regTest(pattern, flags, name)) {
+                  dataInfo.matchArr.push(index);
+                  name = ui.regReplace(pattern, flags, name, repalcement);
                 }
-              );
-            });
+              });
+
+              dataInfo.name = name;
+              dataInfo.existed = false;
+              // 查找最近添加的书签
+              chrome.bookmarks.getRecent(1, arr => {
+                if (arr.length > 0) {
+                  dataInfo.folderId = arr[0].parentId;
+                } else {
+                  dataInfo.folderId = 1;
+                }
+
+                // 默认直接添加书签，会自动根据规则重命名书签名称
+                chrome.bookmarks.create(
+                  {
+                    parentId: dataInfo.folderId,
+                    title: dataInfo.name,
+                    url: dataInfo.url,
+                  },
+                  newBookmark => {
+                    dataInfo.id = newBookmark.id;
+                  }
+                );
+              });
+            }
           }
-        }
-      );
+        );
+      }
     }
-  }
-);
+  );
+});
 
 chrome.bookmarks.getTree(arr => {
   dataInfo.treeData = TraversalArray(arr[0].children);
@@ -201,14 +285,18 @@ export default {
   },
   methods: {
     nameChange(e) {
-      const { value } = e.target;
-      // 可以为空字符串
-      this.name = value;
+      tools.debounce(() => {
+        const { value } = e.target;
+        // 可以为空字符串
+        this.name = value;
+      }, 250);
     },
     urlChange(e) {
-      const { value } = e.target;
-      // 若置为空，后续保存时将采用原网址
-      this.url = value;
+      tools.debounce(() => {
+        const { value } = e.target;
+        // 若置为空，后续保存时将采用原网址
+        this.url = value;
+      }, 250);
     },
     newFolderNameChange(e) {
       const { value } = e.target;
@@ -313,6 +401,32 @@ export default {
         }
       );
     },
+    onSwitchChange(checked, event) {
+      const { id } = event.target.dataset;
+      this.dataSource.forEach((item, index) => {
+        if (item.key == id) {
+          this.dataSource[index].enable = checked;
+        }
+      });
+    },
+    onRename() {
+      const { originalName, dataSource } = this;
+      let result = originalName;
+      this.matchArr = [];
+      if (result) {
+        dataSource.forEach(data => {
+          const { enable, pattern, flags, repalcement, index } = data;
+          if (enable && this.$ui.regTest(pattern, flags, result)) {
+            this.matchArr.push(index);
+            result = this.$ui.regReplace(pattern, flags, result, repalcement);
+          }
+        });
+      }
+
+      Object.assign(this, {
+        name: result,
+      });
+    },
   },
 };
 </script>
@@ -338,21 +452,23 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .input {
-    width: 99%;
+  .top-button {
+    margin: 0px 5px;
   }
   .center-button {
     text-align: center;
   }
-  .folder-select {
-    background-color: @select-folder-background-color;
-    height: 395px;
-    margin: 0px 10px 5px 10px;
-    overflow: auto;
-    border: 2px solid @select-folder-border-color;
+  .full-height {
+    height: 350px;
+  }
+  .ant-table-footer {
+    padding: 1px;
   }
   .footer {
     margin-top: 5px;
+  }
+  .match {
+    color: @match-color;
   }
 }
 </style>

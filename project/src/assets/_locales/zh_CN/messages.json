@@ -50,6 +50,12 @@
   "bookmarkFolderPlaceholder": {
     "message": "请输入文件夹名称"
   },
+  "bookmarkRenameText": {
+    "message": "重命名"
+  },
+  "bookmarkRenameTip": {
+    "message": "根据规则重命名书签名称"
+  },
   "bookmarkRestoreText": {
     "message": "恢复"
   },
@@ -229,6 +235,12 @@
         "example": ":"
       }
     }
+  },
+  "rulesFilterSearchText": {
+    "message": "搜索"
+  },
+  "rulesFilterResetText": {
+    "message": "重置"
   },
   "batchPreviewText": {
     "message": "预览"
