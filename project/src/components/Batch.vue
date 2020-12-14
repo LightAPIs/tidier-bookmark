@@ -13,6 +13,7 @@
       </a-config-provider>
     </a-affix>
     <a-tree
+      v-if="effectVisible"
       :tree-data="treeData"
       :expanded-keys="expandedKeys"
       :replace-fields="replaceFields"
@@ -57,6 +58,7 @@
         -
       </template>
     </a-tree>
+    <a-empty v-else :description="false" />
   </div>
 </template>
 
