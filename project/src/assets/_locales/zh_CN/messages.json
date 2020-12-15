@@ -289,5 +289,23 @@
   },
   "batchCompletionText": {
     "message": "批量替换完成！"
+  },
+  "aboutSupportDividerText": {
+    "message": "支持"
+  },
+  "aboutSupportLabel": {
+    "message": "本扩展程序秉承着开放共享的原则，是一款开源免费的 Chrome 扩展程序，并且绝不会收集发送您的任何隐私信息。"
+  },
+  "aboutSourceCodeText": {
+    "message": "源代码 (GPLv3)"
+  },
+  "aboutFeedbackText": {
+    "message": "问题反馈"
+  },
+  "aboutThanksDividerText": {
+    "message": "鸣谢"
+  },
+  "aboutThanksLabel": {
+    "message": "Tidier bookmark 的诞生需要感谢以下开源项目所提供的帮助："
   }
 }

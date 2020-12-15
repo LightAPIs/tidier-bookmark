@@ -37,6 +37,8 @@ copyFiles.push({
   to: path.resolve('dist'),
 });
 
+process.env.VUE_APP_VERSION = packageInfo.version;
+
 module.exports = {
   filenameHashing: false,
   lintOnSave: 'warning',
