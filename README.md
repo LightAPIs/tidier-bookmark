@@ -41,7 +41,7 @@ npm install
 - [vueComponent/ant-design-vue](https://github.com/vueComponent/ant-design-vue)
 - [zloirock/core-js](https://github.com/zloirock/core-js)
 - [vuejs/vue](https://github.com/vuejs/vue)
-- [vuejs/vue-router](https://github.com/vuejs/vue-route)
+- [vuejs/vue-router](https://github.com/vuejs/vue-router)
 
 同时还使用到了一些小巧但功能强大的组件：
 
