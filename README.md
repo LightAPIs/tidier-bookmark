@@ -49,4 +49,4 @@ npm install
 
 ## 许可证
 
-[GPL-3.0](license/gpl-3.0.md) License
+[GPL-3.0](/LICENSE.md) License
