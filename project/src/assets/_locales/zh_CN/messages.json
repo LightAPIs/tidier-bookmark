@@ -110,6 +110,36 @@
   "optionsAboutText": {
     "message": "关于插件"
   },
+  "settingsBookmarkLabel": {
+    "message": "书签"
+  },
+  "settingsBookmarkOnTopText": {
+    "message": "新添加的书签总是在当前文件夹最前面"
+  },
+  "settingsFolderOnTopText": {
+    "message": "新建的文件夹总是在当前文件夹的最前面"
+  },
+  "settingsSkinLabel": {
+    "message": "外观"
+  },
+  "settingsDarkModeText": {
+    "message": "夜间模式$colon$",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": ":"
+      }
+    }
+  },
+  "settingsDarkModeOptionsDefault": {
+    "message": "跟随系统"
+  },
+  "settingsDarkModeOptionsEnabled": {
+    "message": "已启用"
+  },
+  "settingsDarkModeOptionsDisabled": {
+    "message": "已禁用"
+  },
   "rulesTableEnableText": {
     "message": "启用"
   },
