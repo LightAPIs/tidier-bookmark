@@ -203,11 +203,16 @@ const dataInfo = {
   ],
   dataSource: [],
   matchArr: [],
+  settings: {},
 };
 
-chrome.storage.local.get('rules', result => {
-  dataInfo.rulesVisible = true;
-  dataInfo.dataSource = result.rules || [];
+chrome.storage.local.get(['rules', 'settings'], result => {
+  const { rules, settings } = result;
+  Object.assign(dataInfo, {
+    rulesVisible: true,
+    dataSource: rules || [],
+    settings: settings || {},
+  });
 
   chrome.tabs.query(
     {
@@ -261,6 +266,7 @@ chrome.storage.local.get('rules', result => {
                     parentId: dataInfo.folderId,
                     title: dataInfo.name,
                     url: dataInfo.url,
+                    index: dataInfo.settings.bookmarkOnTop ? 0 : null,
                   },
                   newBookmark => {
                     dataInfo.id = newBookmark.id;
@@ -328,6 +334,7 @@ export default {
               res.id,
               {
                 parentId: this.folderId,
+                index: !this.existed && this.settings.bookmarkOnTop ? 0 : null,
               },
               newBookmark => {
                 if (newBookmark) {
@@ -371,6 +378,7 @@ export default {
         {
           parentId: this.folderId,
           title: this.newFolderName || this.$ui.get('bookmarkNewFolderText'),
+          index: this.settings.folderOnTop ? 0 : null,
         },
         res => {
           if (res) {
