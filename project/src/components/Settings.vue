@@ -91,18 +91,12 @@ export default {
      * 存储设置的方法
      */
     setValue() {
-      const settings = [];
+      const settings = {};
       this.bookmarkData.forEach(data => {
-        settings.push({
-          key: data.key,
-          value: data.value,
-        });
+        settings[data.key] = data.value;
       });
       this.skinData.forEach(skin => {
-        settings.push({
-          key: skin.key,
-          value: skin.value,
-        });
+        settings[skin.key] = skin.value;
       });
       chrome.storage.local.set(
         {
@@ -116,20 +110,21 @@ export default {
   },
   created() {
     chrome.storage.local.get('settings', result => {
-      const settings = result.settings || [];
+      const settings = result.settings || {};
+      const { bookmarkOnTop, folderOnTop, darkMode } = settings;
+
       this.bookmarkData.forEach((data, index) => {
-        settings.forEach(setting => {
-          if (setting.key === data.key) {
-            this.bookmarkData[index].value = setting.value;
-          }
-        });
+        if (data.key === 'bookmarkOnTop') {
+          this.bookmarkData[index].value = bookmarkOnTop || false;
+        }
+        if (data.key === 'folderOnTop') {
+          this.bookmarkData[index].value = folderOnTop || false;
+        }
       });
       this.skinData.forEach((skin, index) => {
-        settings.forEach(setting => {
-          if (setting.key === skin.key) {
-            this.skinData[index].value = setting.value;
-          }
-        });
+        if (skin.key === 'darkMode') {
+          this.skinData[index].value = darkMode || 0;
+        }
       });
     });
   },
