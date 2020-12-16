@@ -1,6 +1,6 @@
 <template>
   <div id="batch-component">
-    <a-affix :offset-top="0">
+    <a-affix :offset-top="0" :target="affixTarget">
       <a-config-provider :auto-insert-space-in-button="false">
         <a-space class="top-button-group">
           <a-button @click="onPreview">
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import 'default-passive-events';
 const replaceFields = {
   key: 'id',
 };
@@ -80,6 +81,9 @@ export default {
     };
   },
   methods: {
+    affixTarget() {
+      return document.querySelector('.content');
+    },
     onPreview() {
       chrome.storage.local.get('rules', result => {
         this.rulesData = result.rules;

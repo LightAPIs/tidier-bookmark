@@ -67,6 +67,10 @@ export default {
           url: 'https://github.com/zloirock/core-js',
         },
         {
+          title: 'default-passive-events (MIT Liscense)',
+          url: 'https://github.com/zzarcon/default-passive-events',
+        },
+        {
           title: 'Vue.js (MIT Liscense)',
           url: 'https://github.com/vuejs/vue',
         },

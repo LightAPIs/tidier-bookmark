@@ -1,8 +1,8 @@
 # Tidier bookmark
 
-> 实现更整洁的书签名称
+> 帮助实现更整洁的书签名称
 
-在添加书签时可以自动根据定义的正则表达式规则修改书签名称，以获得更整洁的书签，同时还提供了批量修改已存在的书签名称功能。
+允许在添加书签时自动根据用户定义的正则表达式规则书签名称进行修改，以获得更整洁的书签，同时还提供了批量修改已存在书签名称的功能。
 
 ## 安装方法
 
@@ -12,14 +12,14 @@
 
 ### 环境需求
 
-- 安装 [Node.js](https://nodejs.org/) 8.9 及以上 (新版本已集成 npm)
+- 安装 [Node.js](https://nodejs.org/) 8.9 及以上 (*新版本已集成 npm，若您的网络环境不佳，推荐安装使用 [cnpm](https://github.com/cnpm/cnpm)*)
 
 ### 初始化指令
 
 ```bash
 # 安装 Vue CLI
 npm install @vue/cli -g
-# 安装 commitzen (可选，支持使用 `git cz` 替代 `git commit`)
+# 安装 commitzen (可选，安装后可支持使用 `git cz` 替代 `git commit` 命令)
 npm install commitizen -g
 
 cd project
@@ -46,6 +46,7 @@ npm install
 同时还使用到了一些小巧但功能强大的组件：
 
 - [uzairfarooq/arrive](https://github.com/uzairfarooq/arrive)
+- [zzarcon/default-passive-events](https://github.com/zzarcon/default-passive-events)
 
 ## 许可证
 
