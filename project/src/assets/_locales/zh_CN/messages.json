@@ -98,6 +98,9 @@
   "bookmarkErrorMoveToNewFolderText": {
     "message": "无法自动将书签移动至新建文件夹"
   },
+  "optionsTitle": {
+    "message": "选项"
+  },
   "optionsGeneralSettingsText": {
     "message": "通用设置"
   },
