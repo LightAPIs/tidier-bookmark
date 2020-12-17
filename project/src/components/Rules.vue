@@ -9,7 +9,7 @@
           {{ $ui.get('rulesEditTestText') }}
         </a-button>
       </a-space>
-      <a-table :columns="columns" :data-source="dataSource">
+      <a-table :columns="columns" :data-source="dataSource" :get-popup-container="getPopupContainer">
         <div slot="filterDropdown" slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters }" class="filter-dropdown">
           <a-input
             v-ant-ref="c => (searchInput = c)"
@@ -63,6 +63,7 @@
         :title="editModal.add ? $ui.get('rulesEditModalAddTitle') : $ui.get('rulesEditModalTitle')"
         :footer="null"
         closeable
+        :get-container="getPopupContainer"
       >
         <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 18 }" class="edit-modal">
           <a-form-item :label="$ui.get('rulesTableNameText')">
@@ -123,7 +124,13 @@
           </a-form-item>
         </a-form>
       </a-modal>
-      <a-modal v-model="testModal.visible" :title="$ui.get('rulesTestModalTitle')" :footer="null" closeable>
+      <a-modal
+        v-model="testModal.visible"
+        :title="$ui.get('rulesTestModalTitle')"
+        :footer="null"
+        closeable
+        :get-container="getPopupContainer"
+      >
         <div class="test-modal">
           <a-space direction="vertical" style="width: 100%">
             <a-row type="flex" class="align-items-center">
@@ -254,6 +261,9 @@ export default {
     },
   },
   methods: {
+    getPopupContainer() {
+      return document.getElementById('opitons-app');
+    },
     handleAdd() {
       const { count } = this;
       Object.assign(this.editModal, {
@@ -449,7 +459,7 @@ export default {
       );
     },
   },
-  created() {
+  beforeCreate() {
     chrome.storage.local.get('rules', result => {
       this.dataSource = result.rules || [];
     });

@@ -1,5 +1,5 @@
 <template>
-  <div id="popup-app">
+  <div id="popup-app" :class="skinClass">
     <a-config-provider :auto-insert-space-in-button="false">
       <div class="container">
         <a-space direction="vertical" style="width: 100%;">
@@ -120,6 +120,7 @@
           :ok-text="$ui.get('bookmarkOkText')"
           :cancel-text="$ui.get('bookmarkCancelText')"
           @ok="newFolderOk"
+          :get-container="popupContainer"
         >
           <a-input
             v-focus="modalVisible"
@@ -288,6 +289,26 @@ chrome.bookmarks.getTree(arr => {
 export default {
   data() {
     return dataInfo;
+  },
+  computed: {
+    skinClass() {
+      let skin = 'default';
+      if (this.settings) {
+        switch (this.settings.darkMode) {
+          case 1:
+            skin = 'dark';
+            break;
+          case -1:
+            skin = 'light';
+            break;
+          case 0:
+          default:
+            skin = 'default';
+            break;
+        }
+      }
+      return skin;
+    },
   },
   methods: {
     nameChange(e) {
@@ -477,6 +498,27 @@ export default {
   }
   .match {
     color: @match-color;
+  }
+}
+
+.dark() {
+  background-color: @general-background-color-dark;
+  .heading {
+    color: @logo-text-color-dark;
+  }
+  .original-title {
+    color: @select-selection-color-dark;
+  }
+  .ant-dark();
+}
+
+#popup-app.dark {
+  .dark();
+}
+
+@media (prefers-color-scheme: dark) {
+  #popup-app.default {
+    .dark();
   }
 }
 </style>

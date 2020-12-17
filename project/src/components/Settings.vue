@@ -22,7 +22,7 @@
           <span class="label">
             {{ item.title }}
           </span>
-          <a-select :value="item.value" @change="onSelectChange" class="select">
+          <a-select :value="item.value" @change="onSelectChange" class="select" :get-popup-container="getPopupContainer">
             <a-select-option v-for="option in item.options" :key="option.value" :value="option.value">
               {{ option.name }}
             </a-select-option>
@@ -74,6 +74,9 @@ export default {
     };
   },
   methods: {
+    getPopupContainer() {
+      return document.getElementById('opitons-app');
+    },
     onSwitchChange(checked, event) {
       const { id } = event.target.dataset;
       this.bookmarkData.forEach((item, index) => {
@@ -85,6 +88,23 @@ export default {
     },
     onSelectChange(value) {
       this.skinData[0].value = value;
+      const skin = document.querySelector('.skin');
+      let newClassName = 'default';
+      switch (value) {
+        case 1:
+          newClassName = 'dark';
+          break;
+        case -1:
+          newClassName = 'light';
+          break;
+        case 0:
+        default:
+          newClassName = 'default';
+          break;
+      }
+      skin.classList.remove('default', 'light', 'dark');
+      skin.classList.add(newClassName);
+
       this.setValue();
     },
     /**
@@ -108,7 +128,7 @@ export default {
       );
     },
   },
-  created() {
+  beforeCreate() {
     chrome.storage.local.get('settings', result => {
       const settings = result.settings || {};
       const { bookmarkOnTop, folderOnTop, darkMode } = settings;

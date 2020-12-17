@@ -1,5 +1,5 @@
 <template>
-  <div id="opitons-app">
+  <div id="opitons-app" class="skin" :class="skinClass">
     <a-layout>
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible class="layout-height">
         <div class="logo">
@@ -77,7 +77,28 @@ export default {
     return {
       collapsed: false,
       selectedKeys,
+      settings: {},
     };
+  },
+  computed: {
+    skinClass() {
+      let skin = 'default';
+      if (this.settings) {
+        switch (this.settings.darkMode) {
+          case 1:
+            skin = 'dark';
+            break;
+          case -1:
+            skin = 'light';
+            break;
+          case 0:
+          default:
+            skin = 'default';
+            break;
+        }
+      }
+      return skin;
+    },
   },
   methods: {
     triggerSwitch() {
@@ -87,6 +108,11 @@ export default {
       const { selectedKeys } = obj;
       this.selectedKeys = [...selectedKeys];
     },
+  },
+  beforeCreate() {
+    chrome.storage.local.get('settings', result => {
+      this.settings = result.settings || {};
+    });
   },
 };
 </script>
@@ -98,6 +124,7 @@ export default {
   }
   .layout-overflow {
     overflow: hidden;
+    background-color: @layout-background-color;
   }
   .trigger {
     font-size: 18px;
@@ -108,13 +135,13 @@ export default {
   }
   .header {
     padding: 0px;
-    background-color: @page-background-color;
+    background-color: @header-background-color;
   }
   .content {
     margin: 24px 16px;
     padding: 24px;
     min-height: 280px;
-    background-color: @page-background-color;
+    background-color: @content-background-color;
     overflow: auto;
   }
   .logo {
@@ -125,6 +152,52 @@ export default {
     text-align: center;
     background-color: @logo-background-color;
     margin: 16px;
+  }
+  #batch-component {
+    .top-button-group {
+      background-color: @general-background-color;
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}
+
+.dark() {
+  .header {
+    background-color: @header-background-color-dark;
+    svg {
+      color: @logo-text-color-dark;
+    }
+  }
+  .content {
+    background-color: @content-background-color-dark;
+  }
+  .layout-overflow {
+    background-color: @layout-background-color-dark;
+  }
+  .logo {
+    color: @logo-text-color-dark;
+    background-color: @logo-background-color-dark;
+  }
+  #batch-component {
+    .top-button-group {
+      background-color: @content-background-color-dark;
+    }
+  }
+  .about-header,
+  .about-label {
+    color: @logo-text-color-dark;
+  }
+  .ant-dark();
+}
+
+#opitons-app.dark {
+  .dark();
+}
+
+@media (prefers-color-scheme: dark) {
+  #opitons-app.default {
+    .dark();
   }
 }
 </style>
