@@ -124,7 +124,6 @@ export default {
   }
   .layout-overflow {
     overflow: hidden;
-    background-color: @layout-background-color;
   }
   .trigger {
     font-size: 18px;
