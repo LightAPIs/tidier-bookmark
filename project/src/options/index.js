@@ -30,10 +30,10 @@ import {
   Tooltip,
   Tree,
 } from 'ant-design-vue';
-import Settings from '../components/Settings.vue';
-import Rules from '../components/Rules.vue';
-import Batch from '../components/Batch.vue';
-import About from '../components/About.vue';
+import Settings from '../router/Settings.vue';
+import Rules from '../router/Rules.vue';
+import Batch from '../router/Batch.vue';
+import About from '../router/About.vue';
 
 Vue.use(VueRouter);
 Vue.use(Layout);
