@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App/App.vue';
 import ui from '../commons/ui';
+import tools from '../commons/tools';
 import {
   Affix,
   Button,
@@ -63,6 +64,7 @@ Vue.use(Divider);
 Vue.use(Timeline);
 Vue.prototype.$message = message;
 Vue.prototype.$ui = ui;
+Vue.prototype.$tools = tools;
 Vue.config.productionTip = false;
 
 const routes = [

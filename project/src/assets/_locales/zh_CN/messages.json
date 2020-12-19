@@ -113,6 +113,36 @@
   "optionsAboutText": {
     "message": "关于插件"
   },
+  "optionsImportText": {
+    "message": "导入配置"
+  },
+  "optionsImportTip": {
+    "message": "这将可能覆盖当前的设置和规则，是否确认继续？"
+  },
+  "optionsImportNoFileText": {
+    "message": "没有选择文件"
+  },
+  "optionsImportValidText": {
+    "message": "这是一个无效的文件"
+  },
+  "optionsImportEmptyText": {
+    "message": "文件内容为空"
+  },
+  "optionsImportErrorObjectText": {
+    "message": "解析对象时出错"
+  },
+  "optionsExportText": {
+    "message": "导出配置"
+  },
+  "optionsExportLabel": {
+    "message": "请选择需要导出的内容："
+  },
+  "optionsExportSettingsValue": {
+    "message": "设置值"
+  },
+  "optionsExportRulesValue": {
+    "message": "规则"
+  },
   "settingsBookmarkLabel": {
     "message": "书签"
   },

@@ -44,17 +44,59 @@
       <a-layout class="layout-height layout-overflow">
         <a-layout-header class="header">
           <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="triggerSwitch" />
+          <div class="file">
+            <a-popconfirm
+              :title="$ui.get('optionsImportTip')"
+              :ok-text="$ui.get('bookmarkOkText')"
+              :cancel-text="$ui.get('bookmarkCancelText')"
+              placement="leftBottom"
+              @confirm="handleImport"
+            >
+              <a>
+                {{ $ui.get('optionsImportText') }}
+              </a>
+            </a-popconfirm>
+
+            <a @click.stop="handleExport">
+              {{ $ui.get('optionsExportText') }}
+            </a>
+          </div>
         </a-layout-header>
+
         <a-layout-content class="content">
           <router-view></router-view>
         </a-layout-content>
       </a-layout>
     </a-layout>
+    <a-modal
+      v-model="file.visible"
+      :title="$ui.get('optionsExportText')"
+      :get-container="getContainer"
+      :ok-text="$ui.get('bookmarkOkText')"
+      :cancel-text="$ui.get('bookmarkCancelText')"
+      @ok="fileOk"
+    >
+      <div class="export-label">
+        {{ $ui.get('optionsExportLabel') }}
+      </div>
+      <a-checkbox-group :value="file.selectedKeys" @change="fileSelectedChange">
+        <a-checkbox value="settings">
+          {{ $ui.get('optionsExportSettingsValue') }}
+        </a-checkbox>
+        <br />
+        <a-checkbox value="rules">
+          {{ $ui.get('optionsExportRulesValue') }}
+        </a-checkbox>
+      </a-checkbox-group>
+    </a-modal>
   </div>
 </template>
 
 <script>
+import AES from 'crypto-js/aes';
+import encUtf8 from 'crypto-js/enc-utf8';
 const { hash } = location;
+const secretKey = 'tidier';
 const selectedKeys = [];
 switch (hash) {
   case '#/rules':
@@ -72,12 +114,18 @@ switch (hash) {
     break;
 }
 
+const file = {
+  visible: false,
+  selectedKeys: [],
+};
+
 export default {
   data() {
     return {
       collapsed: false,
       selectedKeys,
       settings: {},
+      file,
     };
   },
   computed: {
@@ -101,12 +149,72 @@ export default {
     },
   },
   methods: {
+    getContainer: () => {
+      return document.getElementById('opitons-app');
+    },
     triggerSwitch() {
       this.collapsed = !this.collapsed;
     },
     handleSelect(obj) {
       const { selectedKeys } = obj;
       this.selectedKeys = [...selectedKeys];
+    },
+    handleExport() {
+      Object.assign(this.file, {
+        visible: true,
+        selectedKeys: ['settings', 'rules'],
+      });
+    },
+    fileSelectedChange(checkedValue) {
+      this.file.selectedKeys = [...checkedValue];
+    },
+    fileOk() {
+      const { selectedKeys } = this.file;
+      if (selectedKeys.length > 0) {
+        chrome.storage.local.get(selectedKeys, result => {
+          const jsonString = JSON.stringify(result);
+          const ciphertext = AES.encrypt(jsonString, secretKey).toString();
+          const filename = 'config_' + Date.now().toString() + '.txt';
+          this.$tools.downloadTextFile(ciphertext, filename);
+        });
+      }
+      this.file.visible = false;
+    },
+    handleImport() {
+      this.$tools.openTextFile((res, content) => {
+        if (res) {
+          if (content) {
+            const bytes = AES.decrypt(content, secretKey);
+            const originalText = bytes.toString(encUtf8);
+            try {
+              const importObj = JSON.parse(originalText);
+              if (typeof importObj === 'object' && importObj) {
+                const { rules, settings } = importObj;
+                chrome.storage.local.set(
+                  {
+                    settings,
+                    rules,
+                  },
+                  () => {
+                    console.log('The settings and rules have been set.');
+                    location.reload();
+                  }
+                );
+              }
+            } catch (e) {
+              console.error('There was an error in the parsing of the object.');
+              console.error(e);
+              this.$message.error(this.$ui.get('optionsImportErrorObjectText'));
+            }
+          } else {
+            console.warn('The contents of the file are empty.');
+            this.$message.warn(this.$ui.get('optionsImportEmptyText'));
+          }
+        } else {
+          content === 'no file' && this.$message.warn(this.$ui.get('optionsImportNoFileText'));
+          content === 'valid' && this.$message.error(this.$ui.get('optionsImportValidText'));
+        }
+      });
     },
   },
   beforeCreate() {
@@ -132,6 +240,13 @@ export default {
     cursor: pointer;
     transition: color 0.3s;
   }
+  .file {
+    float: right;
+    a {
+      margin: 0px 20px;
+      user-select: none;
+    }
+  }
   .header {
     padding: 0px;
     background-color: @header-background-color;
@@ -151,6 +266,9 @@ export default {
     text-align: center;
     background-color: @logo-background-color;
     margin: 16px;
+  }
+  .export-label {
+    margin-bottom: 10px;
   }
   #batch-component {
     .top-button-group {

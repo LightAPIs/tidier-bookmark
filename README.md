@@ -40,6 +40,7 @@ npm install
 
 - [vueComponent/ant-design-vue](https://github.com/vueComponent/ant-design-vue)
 - [zloirock/core-js](https://github.com/zloirock/core-js)
+- [brix/crypto-js](https://github.com/brix/crypto-js)
 - [vuejs/vue](https://github.com/vuejs/vue)
 - [vuejs/vue-router](https://github.com/vuejs/vue-router)
 

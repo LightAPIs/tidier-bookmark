@@ -67,6 +67,10 @@ export default {
           url: 'https://github.com/zloirock/core-js',
         },
         {
+          title: 'crypto-js (MIT Liscense)',
+          url: 'https://github.com/brix/crypto-js',
+        },
+        {
           title: 'default-passive-events (MIT Liscense)',
           url: 'https://github.com/zzarcon/default-passive-events',
         },

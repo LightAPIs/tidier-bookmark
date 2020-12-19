@@ -133,6 +133,84 @@ const tools = {
       }, 200);
     }
   },
+
+  /**
+   * 下载文本文件至本地的方法
+   * @param {String} content 文件内容
+   * @param {String} filename 文件名 - 支持带扩展名(默认为 txt)
+   * @param {Function} completed 下载完成后的回调函数
+   */
+  downloadTextFile: (content, filename = null, completed = null) => {
+    if (!filename) {
+      filename = 'no-name.txt';
+    } else {
+      filename = /\.(?:txt|text|json|config)$/i.test(filename) ? filename : filename + '.txt';
+    }
+
+    const urlObject = window.URL || window.webKitURL || window;
+    const exportBlob = new Blob([content]);
+    const saveLink = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+    saveLink.href = urlObject.createObjectURL(exportBlob);
+    saveLink.download = filename;
+
+    /** MouseEvent 鼠标事件构造器 */
+    const ev = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: false,
+      screenX: 0,
+      screenY: 0,
+      clientX: 0,
+      clientY: 0,
+      ctrlKey: false,
+      altKey: false,
+      shiftKey: false,
+      metaKey: false,
+      button: 0,
+      relatedTarget: null,
+    });
+    saveLink.dispatchEvent(ev);
+
+    typeof completed === 'function' && completed();
+  },
+
+  /**
+   * 打开并读取文本文件的方法
+   * @param {Function} callback 回调函数 (res: 状态, content: 内容)
+   */
+  openTextFile: callback => {
+    const fileInput = document.createElementNS('http://www.w3.org/1999/xhtml', 'input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt, .text, .json, .conf, .config';
+    fileInput.style.display = 'none';
+
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.value) {
+        console.warn('No file selected.');
+        callback(false, 'no file');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const { type } = file;
+
+      if (type !== 'application/json' && type !== 'application/xml' && type !== 'text/plain') {
+        console.warn('Not a valid file.');
+        callback(false, 'valid');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = e.target.result;
+        callback(true, data);
+        return;
+      };
+
+      reader.readAsText(file);
+    });
+
+    fileInput.click();
+  },
 };
 
 export default tools;
