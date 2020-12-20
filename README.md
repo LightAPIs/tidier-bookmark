@@ -8,6 +8,8 @@
 
 ## 使用方法
 
+> **注意:** 本扩展程序所汲及到的规则均采用正则表达式进行编写，如果您不了解或不熟悉正则表达式的使用方法，可以参考[此处](https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md)
+
 ## 开发编译
 
 ### 环境需求
@@ -48,6 +50,8 @@ npm install
 
 - [uzairfarooq/arrive](https://github.com/uzairfarooq/arrive)
 - [zzarcon/default-passive-events](https://github.com/zzarcon/default-passive-events)
+
+最后感谢 [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 所提供的关于正则表达式学习与帮助文档。
 
 ## 许可证
 

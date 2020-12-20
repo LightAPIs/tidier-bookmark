@@ -52,6 +52,10 @@ export default {
           title: this.$ui.get('aboutFeedbackText'),
           url: 'https://github.com/LightAPIs/tidier-bookmark/issues',
         },
+        {
+          title: this.$ui.get('aboutRegexText'),
+          url: 'https://github.com/ziishaned/learn-regex',
+        },
       ],
       thanks: [
         {

@@ -73,6 +73,14 @@
             <a-input v-decorator="['pattern', { rules: [{ required: true, message: $ui.get('rulesEditPatternMessage') }] }]" />
           </a-form-item>
           <a-form-item :label="$ui.get('rulesEditFlagsLabel')">
+            <template slot="help">
+              <span>
+                {{ $ui.get('rulesEditRegexHelp') }}
+              </span>
+              <a target="_blank" :href="$ui.get('rulesEditRegexUrl')">
+                learn-regex
+              </a>
+            </template>
             <a-checkbox-group v-decorator="['flags']" class="checkbox-group">
               <a-row>
                 <a-col :span="8">

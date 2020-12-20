@@ -242,6 +242,12 @@
   "rulesEditFlagsUTip": {
     "message": "使用 unicode 码的模式进行匹配"
   },
+  "rulesEditRegexHelp": {
+    "message": "更多关于正则表达式的使用方法，请参考："
+  },
+  "rulesEditRegexUrl": {
+    "message": "https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md"
+  },
   "rulesEditReplacementLabel": {
     "message": "替换值$colon$",
     "placeholders": {
@@ -337,6 +343,9 @@
   },
   "aboutFeedbackText": {
     "message": "问题反馈"
+  },
+  "aboutRegexText": {
+    "message": "正则表达式帮助(learn-regex)"
   },
   "aboutThanksDividerText": {
     "message": "鸣谢"
