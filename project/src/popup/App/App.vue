@@ -4,7 +4,7 @@
       <div class="container">
         <a-space direction="vertical" style="width: 100%;">
           <div class="heading">
-            {{ existed ? $ui.get('bookmarkModifyTitle') : $ui.get('bookmarkAddedTitle') }}
+            {{ popupHeading }}
           </div>
           <a-row type="flex" class="align-items-center">
             <a-col flex="80px" class="label">
@@ -262,17 +262,18 @@ chrome.storage.local.get(['rules', 'settings'], result => {
                 }
 
                 // 默认直接添加书签，会自动根据规则重命名书签名称
-                chrome.bookmarks.create(
-                  {
-                    parentId: dataInfo.folderId,
-                    title: dataInfo.name,
-                    url: dataInfo.url,
-                    index: dataInfo.settings.bookmarkOnTop ? 0 : null,
-                  },
-                  newBookmark => {
-                    dataInfo.id = newBookmark.id;
-                  }
-                );
+                !dataInfo.settings.disableAutoAdd &&
+                  chrome.bookmarks.create(
+                    {
+                      parentId: dataInfo.folderId,
+                      title: dataInfo.name,
+                      url: dataInfo.url,
+                      index: dataInfo.settings.bookmarkOnTop ? 0 : null,
+                    },
+                    newBookmark => {
+                      dataInfo.id = newBookmark.id;
+                    }
+                  );
               });
             }
           }
@@ -309,6 +310,17 @@ export default {
       }
       return skin;
     },
+    popupHeading() {
+      if (this.existed) {
+        return this.$ui.get('bookmarkModifyTitle');
+      } else {
+        if (this.settings.disableAutoAdd) {
+          return this.$ui.get('bookmarkAddingTitle');
+        } else {
+          return this.$ui.get('bookmarkAddedTitle');
+        }
+      }
+    },
   },
   methods: {
     nameChange(e) {
@@ -343,40 +355,58 @@ export default {
      * 保存书签事件
      */
     saveBookmark() {
-      chrome.bookmarks.update(
-        this.id,
-        {
-          title: this.name,
-          url: this.url || this.originalUrl,
-        },
-        res => {
-          if (res) {
-            chrome.bookmarks.move(
-              res.id,
-              {
-                parentId: this.folderId,
-                index: !this.existed && this.settings.bookmarkOnTop ? 0 : null,
-              },
-              newBookmark => {
-                if (newBookmark) {
-                  window.close();
-                } else {
-                  this.$message.error(this.$ui.get('bookmarkErrorMoveText'), 2);
+      if (this.existed || !this.settings.disableAutoAdd) {
+        chrome.bookmarks.update(
+          this.id,
+          {
+            title: this.name,
+            url: this.url || this.originalUrl,
+          },
+          res => {
+            if (res) {
+              chrome.bookmarks.move(
+                res.id,
+                {
+                  parentId: this.folderId,
+                  index: !this.existed && this.settings.bookmarkOnTop ? 0 : null,
+                },
+                newBookmark => {
+                  if (newBookmark) {
+                    window.close();
+                  } else {
+                    this.$message.error(this.$ui.get('bookmarkErrorMoveText'), 2);
+                  }
                 }
-              }
-            );
-          } else {
-            this.$message.error(this.$ui.get('bookmarkErrorUpdateText'), 2);
+              );
+            } else {
+              this.$message.error(this.$ui.get('bookmarkErrorUpdateText'), 2);
+            }
           }
-        }
-      );
+        );
+      } else {
+        chrome.bookmarks.create(
+          {
+            parentId: this.folderId,
+            title: this.name,
+            url: this.url || this.originalUrl,
+            index: this.settings.bookmarkOnTop ? 0 : null,
+          },
+          newBookmark => {
+            if (newBookmark) {
+              window.close();
+            } else {
+              this.$message.error(this.$ui.get('bookmarkErrorCreateText'), 2);
+            }
+          }
+        );
+      }
     },
     /**
      * 移除书签事件
      */
     removeBookmark() {
       const { id } = this;
-      chrome.bookmarks.remove(id);
+      id && chrome.bookmarks.remove(id);
       window.close();
     },
     /**
@@ -408,22 +438,28 @@ export default {
               this.treeData = TraversalArray(arr[0].children);
             });
 
-            chrome.bookmarks.move(
-              this.id,
-              {
-                parentId: res.id,
-              },
-              newBookmark => {
-                if (newBookmark) {
-                  this.folderId = newBookmark.parentId;
-                  this.modalVisible = false;
+            if (this.existed || !this.settings.disableAutoAdd) {
+              chrome.bookmarks.move(
+                this.id,
+                {
+                  parentId: res.id,
+                },
+                newBookmark => {
+                  if (newBookmark) {
+                    this.folderId = newBookmark.parentId;
+                    this.modalVisible = false;
 
-                  this.$message.success(this.$ui.get('bookmarkSuccessMoveToNewFolderText'));
-                } else {
-                  this.$message.success(this.$ui.get('bookmarkErrorMoveToNewFolderText'));
+                    this.$message.success(this.$ui.get('bookmarkSuccessMoveToNewFolderText'), 2);
+                  } else {
+                    this.$message.success(this.$ui.get('bookmarkErrorMoveToNewFolderText'), 2);
+                  }
                 }
-              }
-            );
+              );
+            } else {
+              this.folderId = res.id;
+              this.modalVisible = false;
+              this.$message.success(this.$ui.get('bookmarkSuccessCreateFolderText'), 2);
+            }
           } else {
             this.$message(this.$ui.get('bookmarkErrorCreateFolderText'), 2);
           }

@@ -49,6 +49,11 @@ export default {
           value: false,
           title: this.$ui.get('settingsFolderOnTopText'),
         },
+        {
+          key: 'disableAutoAdd',
+          value: false,
+          title: this.$ui.get('settingsDisableAutoAddText'),
+        },
       ],
       skinData: [
         {

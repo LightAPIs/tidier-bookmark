@@ -32,6 +32,9 @@
   "bookmarkAddedTitle": {
     "message": "已添加书签"
   },
+  "bookmarkAddingTitle": {
+    "message": "添加书签中"
+  },
   "bookmarkModifyTitle": {
     "message": "修改书签"
   },
@@ -89,8 +92,14 @@
   "bookmarkErrorMoveText": {
     "message": "无法移动书签"
   },
+  "bookmarkErrorCreateText": {
+    "message": "无法创建书签"
+  },
   "bookmarkErrorCreateFolderText": {
     "message": "无法创建文件夹"
+  },
+  "bookmarkSuccessCreateFolderText": {
+    "message": "新建文件夹成功"
   },
   "bookmarkSuccessMoveToNewFolderText": {
     "message": "已自动将书签移动至新建文件夹"
@@ -151,6 +160,9 @@
   },
   "settingsFolderOnTopText": {
     "message": "新建的文件夹总是在当前文件夹的最前面"
+  },
+  "settingsDisableAutoAddText": {
+    "message": "禁止在点击扩展程序图标时自动添加书签"
   },
   "settingsSkinLabel": {
     "message": "外观"
