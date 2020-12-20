@@ -1,5 +1,16 @@
 // import ui from '../commons/ui';
 import shortcuts from '../commons/shortcuts';
+import ui from '../commons/ui';
+
+chrome.contextMenus.create({
+  title: ui.get('contextMenusBrowserRulesTitle'),
+  contexts: ['browser_action'],
+  onclick() {
+    chrome.tabs.create({
+      url: './options.html#/rules?operation=add',
+    });
+  },
+});
 
 chrome.windows.onFocusChanged.addListener(windowId => {
   if (windowId !== chrome.windows.WINDOW_ID_NONE && windowId !== chrome.windows.WINDOW_ID_CURRENT) {

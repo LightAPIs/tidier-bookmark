@@ -364,5 +364,8 @@
   },
   "aboutThanksLabel": {
     "message": "Tidier bookmark 的诞生需要感谢以下开源项目所提供的帮助："
+  },
+  "contextMenusBrowserRulesTitle": {
+    "message": "创建新的规则"
   }
 }

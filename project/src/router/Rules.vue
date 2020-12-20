@@ -2,7 +2,7 @@
   <a-config-provider :auto-insert-space-in-button="false">
     <div id="rules-component">
       <a-space class="btn-group">
-        <a-button class="btn" @click="handleAdd">
+        <a-button id="rules-add-btn" class="btn" @click="handleAdd">
           {{ $ui.get('rulesHandleAddText') }}
         </a-button>
         <a-button class="btn" @click="handleTest">
@@ -467,9 +467,16 @@ export default {
       );
     },
   },
-  beforeCreate() {
+  mounted() {
     chrome.storage.local.get('rules', result => {
       this.dataSource = result.rules || [];
+      const { operation } = this.$route.query;
+      if (operation === 'add') {
+        this.$nextTick(() => {
+          const addBtn = document.getElementById('rules-add-btn');
+          addBtn && addBtn.click();
+        });
+      }
     });
   },
 };

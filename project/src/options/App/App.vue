@@ -98,20 +98,14 @@ import encUtf8 from 'crypto-js/enc-utf8';
 const { hash } = location;
 const secretKey = 'tidier';
 const selectedKeys = [];
-switch (hash) {
-  case '#/rules':
-    selectedKeys.push('2');
-    break;
-  case '#/batch':
-    selectedKeys.push('3');
-    break;
-  case '#/about':
-    selectedKeys.push('4');
-    break;
-  case '#/settings':
-  default:
-    selectedKeys.push('1');
-    break;
+if (hash.includes('#/rules')) {
+  selectedKeys.push('2');
+} else if (hash.includes('#/batch')) {
+  selectedKeys.push('3');
+} else if (hash.includes('#/about')) {
+  selectedKeys.push('4');
+} else {
+  selectedKeys.push('1');
 }
 
 const file = {
