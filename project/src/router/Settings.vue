@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     getPopupContainer() {
-      return document.getElementById('opitons-app');
+      return document.getElementById('settings-component');
     },
     onSwitchChange(checked, event) {
       const { id } = event.target.dataset;

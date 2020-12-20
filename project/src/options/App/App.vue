@@ -1,5 +1,5 @@
 <template>
-  <div id="opitons-app" class="skin" :class="skinClass">
+  <div id="options-app" class="skin" :class="skinClass">
     <a-layout>
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible class="layout-height">
         <div class="logo">
@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     getContainer: () => {
-      return document.getElementById('opitons-app');
+      return document.getElementById('options-app');
     },
     triggerSwitch() {
       this.collapsed = !this.collapsed;
@@ -226,7 +226,7 @@ export default {
 </script>
 
 <style lang="less">
-#opitons-app {
+#options-app {
   .layout-height {
     height: 100vh;
   }
@@ -308,12 +308,12 @@ export default {
   .ant-dark();
 }
 
-#opitons-app.dark {
+#options-app.dark {
   .dark();
 }
 
 @media (prefers-color-scheme: dark) {
-  #opitons-app.default {
+  #options-app.default {
     .dark();
   }
 }

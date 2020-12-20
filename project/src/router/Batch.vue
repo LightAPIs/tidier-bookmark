@@ -16,6 +16,7 @@
       v-if="effectVisible"
       :tree-data="treeData"
       :expanded-keys="expandedKeys"
+      :checked-keys="checkedkeys"
       :replace-fields="replaceFields"
       show-icon
       show-line
@@ -67,6 +68,7 @@ import 'default-passive-events';
 const replaceFields = {
   key: 'id',
 };
+const undoKey = 'tidier-undo-key';
 
 export default {
   name: 'Batch',
@@ -78,6 +80,7 @@ export default {
       treeData: [],
       rulesData: [],
       replaceFields,
+      oldData: [],
     };
   },
   methods: {
@@ -85,6 +88,7 @@ export default {
       return document.querySelector('.content');
     },
     onPreview() {
+      this.checkedkeys = [];
       chrome.storage.local.get('rules', result => {
         this.rulesData = result.rules;
         chrome.bookmarks.getTree(arr => {
@@ -98,9 +102,58 @@ export default {
     },
     onEffect() {
       const { treeData } = this;
+      this.oldData = [];
       this.traverseArray(treeData);
-      this.$message.success(this.$ui.get('batchCompletionText'), 2);
+      this.$notification.close(undoKey);
+      setTimeout(() => {
+        this.$notification.success({
+          key: undoKey,
+          placement: 'bottomLeft',
+          duration: 10,
+          getContainer: () => document.getElementById('options-app'),
+          message: h => {
+            return h('div', [
+              this.$ui.get('batchCompletionText'),
+              h('a', {
+                class: 'undo',
+                domProps: {
+                  textContent: this.$ui.get('batchUndoText'),
+                },
+                on: {
+                  click: e => {
+                    e.stopPropagation();
+                    this.onUndo();
+                  },
+                },
+              }),
+            ]);
+          },
+        });
+      }, 0);
+
       this.onPreview();
+    },
+    onUndo() {
+      const { oldData } = this;
+      const length = oldData.length;
+      oldData.forEach((data, index) => {
+        chrome.bookmarks.update(
+          data.id,
+          {
+            title: data.title,
+          },
+          res => {
+            if (!res) {
+              this.$message.error(this.$ui.get('bookmarkErrorUpdateText'), 2);
+              console.error(data);
+            }
+            if (index === length - 1) {
+              this.$notification.close(undoKey);
+              this.onPreview();
+            }
+          }
+        );
+      });
     },
     onCheck(checkedkeys) {
       this.checkedkeys = checkedkeys;
@@ -175,6 +228,11 @@ export default {
                     if (!res) {
                       this.$message.error(this.$ui.get('bookmarkErrorUpdateText'), 2);
                       console.error(item);
+                    } else {
+                      this.oldData.push({
+                        id: item.id,
+                        title: item.title,
+                      });
                     }
                   }
                 );
@@ -205,5 +263,8 @@ export default {
 }
 .tips {
   word-break: break-all;
+}
+.undo {
+  margin-left: 15px;
 }
 </style>

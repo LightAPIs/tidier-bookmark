@@ -20,6 +20,7 @@ import {
   Menu,
   message,
   Modal,
+  notification,
   Popconfirm,
   Row,
   Select,
@@ -62,7 +63,9 @@ Vue.use(Empty);
 Vue.use(Select);
 Vue.use(Divider);
 Vue.use(Timeline);
+Vue.use(notification);
 Vue.prototype.$message = message;
+Vue.prototype.$notification = notification;
 Vue.prototype.$ui = ui;
 Vue.prototype.$tools = tools;
 Vue.config.productionTip = false;

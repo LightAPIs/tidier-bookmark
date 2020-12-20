@@ -262,7 +262,7 @@ export default {
   },
   methods: {
     getPopupContainer() {
-      return document.getElementById('opitons-app');
+      return document.getElementById('rules-component');
     },
     handleAdd() {
       const { count } = this;
