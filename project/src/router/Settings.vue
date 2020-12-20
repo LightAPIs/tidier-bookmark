@@ -30,6 +30,23 @@
         </div>
       </a-list-item>
     </a-list>
+    <a-list item-layout="horizontal">
+      <h3 slot="header">
+        {{ $ui.get('settingsShortcutsLabel') }}
+      </h3>
+      <a-list-item>
+        <a-list-item-meta :description="$ui.get('settingsShortcutsDescription')">
+          <template slot="title">
+            <span>
+              {{ $ui.get('settingsShortcutsGoText') }}
+            </span>
+            <a class="shortcuts" target="_blank" @click="onShortcuts">
+              {{ $ui.get('settingsShortcutsPageText') }}
+            </a>
+          </template>
+        </a-list-item-meta>
+      </a-list-item>
+    </a-list>
   </div>
 </template>
 
@@ -112,6 +129,12 @@ export default {
 
       this.setValue();
     },
+    onShortcuts(e) {
+      e.stopPropagation();
+      chrome.tabs.create({
+        url: 'chrome://extensions/shortcuts#:~:text=Tidier%20bookmark',
+      });
+    },
     /**
      * 存储设置的方法
      */
@@ -170,6 +193,9 @@ export default {
   }
   .label {
     margin-right: 15px;
+  }
+  .shortcuts {
+    color: @link-color;
   }
 }
 </style>

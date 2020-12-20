@@ -185,6 +185,18 @@
   "settingsDarkModeOptionsDisabled": {
     "message": "已禁用"
   },
+  "settingsShortcutsLabel": {
+    "message": "快捷键"
+  },
+  "settingsShortcutsDescription": {
+    "message": "您可以自行在扩展程序键盘快捷键页面中为 Tidier bookmark 绑定激活快捷键，以替代默认的保存书签快捷键，比如：Ctrl + D (Mac: ⌘ + D)。"
+  },
+  "settingsShortcutsGoText": {
+    "message": "前往："
+  },
+  "settingsShortcutsPageText": {
+    "message": "键盘快捷键"
+  },
   "rulesTableEnableText": {
     "message": "启用"
   },
