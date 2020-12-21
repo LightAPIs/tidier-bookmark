@@ -258,7 +258,7 @@ chrome.storage.local.get(['rules', 'settings'], result => {
                 if (arr.length > 0) {
                   dataInfo.folderId = arr[0].parentId;
                 } else {
-                  dataInfo.folderId = 1;
+                  dataInfo.folderId = '1';
                 }
 
                 // 默认直接添加书签，会自动根据规则重命名书签名称
