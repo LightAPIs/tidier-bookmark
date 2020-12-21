@@ -6,9 +6,20 @@
 
 ## 安装方法
 
+1. ~~前往 Chrome 网上应用店进行下载安装~~ (*等待商店审核中...*)
+2. 点击[此处](https://github.com/LightAPIs/tidier-bookmark/releases/latest)下载压缩包并解压，启动浏览器在地址栏输入 `chrome://extensions/` 进入扩展程序管里页面，点击网页右上角开关以开启"开发者模式"，然后点击"加载已解压的扩展程序"按钮，选择先前解压所得目录即可加载扩展程序。
+
 ## 使用方法
 
 > **注意:** 本扩展程序所汲及到的规则均采用正则表达式进行编写，如果您不了解或不熟悉正则表达式的使用方法，可以参考[此处](https://github.com/ziishaned/learn-regex/blob/master/translations/README-cn.md)
+
+初始情况下，鼠标点击扩展程序图标的行为类似地址栏内添加书签按钮，可进行添加或修改书签及新建文件夹等操作，同时支持搜索文件夹功能。
+
+然后可以右键点击扩展程序图标进入选项并切换到规则列表页面，或直接点击菜单中的"创建新的规则"，随即可以编写用于替换书签名称的正则表达式规则。
+
+若规则处于激活状态，并且在点击扩展程序按钮新建书签时其名称匹配该规则，则会自动替换内容。
+
+同时在选项页面还提供了批量修改已存在书签的功能。
 
 ## 开发编译
 
@@ -34,7 +45,13 @@ npm install
 * `npm run build` - 构建项目
 * `npm run build-watch` - 构建项目(支持热重载)
 * `npm run format` - 格式化源代码
-* `npm run changelog` - 自动生成 Change log
+* `npm run changelog` - 自动生成 Changelog
+
+### 相关目录及文件
+
+- 与打包相关的配置位于 `project/vue.config.js` 文件中
+- 扩展程序源代码位于 `project/src` 目录中
+- 未改动配置的情况下，`project/src/assets` 目录下所有文件及文件夹在打包时会自动复制到 `dist` 根目录
 
 ## 致谢
 
