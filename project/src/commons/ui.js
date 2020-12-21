@@ -14,6 +14,12 @@ const ui = {
     return chrome.i18n.getMessage(...arg);
   },
   /**
+   * 是否启用暗黑模式
+   */
+  dark() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  },
+  /**
    * Remove leading and trailing spaces
    * @param {String} value 字符串值
    */

@@ -2,6 +2,70 @@
 import shortcuts from '../commons/shortcuts';
 import ui from '../commons/ui';
 
+let useFavoritesIcon = false;
+
+chrome.storage.local.get('settings', result => {
+  const settings = result.settings || {};
+  useFavoritesIcon = settings.useFavoritesIcon;
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    tabs => {
+      if (tabs.length > 0 && tabs[0].url) {
+        const { url } = tabs[0];
+        chrome.bookmarks.search(
+          {
+            url,
+          },
+          res => {
+            if (res.length > 0) {
+              shortcuts.addBadge(useFavoritesIcon);
+            } else {
+              shortcuts.removeBadge(useFavoritesIcon);
+            }
+          }
+        );
+      } else {
+        shortcuts.resetIconState(useFavoritesIcon);
+      }
+    }
+  );
+});
+
+chrome.storage.onChanged.addListener(changes => {
+  if (changes.settings) {
+    useFavoritesIcon = changes.settings.newValue.useFavoritesIcon;
+    !useFavoritesIcon && shortcuts.RestoreIcon();
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      tabs => {
+        if (tabs.length > 0 && tabs[0].url) {
+          const { url } = tabs[0];
+          chrome.bookmarks.search(
+            {
+              url,
+            },
+            res => {
+              if (res.length > 0) {
+                shortcuts.addBadge(useFavoritesIcon);
+              } else {
+                shortcuts.removeBadge(useFavoritesIcon);
+              }
+            }
+          );
+        } else {
+          shortcuts.resetIconState(useFavoritesIcon);
+        }
+      }
+    );
+  }
+});
+
 chrome.contextMenus.create({
   title: ui.get('contextMenusBrowserRulesTitle'),
   contexts: ['browser_action'],
@@ -28,14 +92,14 @@ chrome.windows.onFocusChanged.addListener(windowId => {
             },
             res => {
               if (res.length > 0) {
-                shortcuts.addBadge();
+                shortcuts.addBadge(useFavoritesIcon);
               } else {
-                shortcuts.removeBadge();
+                shortcuts.removeBadge(useFavoritesIcon);
               }
             }
           );
         } else {
-          shortcuts.resetIconState();
+          shortcuts.resetIconState(useFavoritesIcon);
         }
       }
     );
@@ -61,15 +125,15 @@ chrome.tabs.onActivated.addListener(activeInfo => {
             },
             res => {
               if (res.length > 0) {
-                shortcuts.addBadge();
+                shortcuts.addBadge(useFavoritesIcon);
               } else {
-                shortcuts.removeBadge();
+                shortcuts.removeBadge(useFavoritesIcon);
               }
             }
           );
         } else {
           // 没有检索到标签页时，将按钮提示恢复原状
-          shortcuts.resetIconState();
+          shortcuts.resetIconState(useFavoritesIcon);
         }
       }
     );
@@ -91,9 +155,9 @@ chrome.tabs.onUpdated.addListener((_tabId, _changeInfo, tab) => {
             },
             res => {
               if (res.length > 0) {
-                shortcuts.addBadge();
+                shortcuts.addBadge(useFavoritesIcon);
               } else {
-                shortcuts.removeBadge();
+                shortcuts.removeBadge(useFavoritesIcon);
               }
             }
           );
@@ -112,7 +176,7 @@ chrome.bookmarks.onCreated.addListener((_id, bookmark) => {
       tabs => {
         if (tabs.length > 0 && tabs[0].url) {
           if (bookmark.url === tabs[0].url) {
-            shortcuts.addBadge();
+            shortcuts.addBadge(useFavoritesIcon);
           }
         }
       }
@@ -134,7 +198,7 @@ chrome.bookmarks.onRemoved.addListener((_id, removeInfo) => {
               url,
             },
             res => {
-              res.length === 0 && shortcuts.removeBadge();
+              res.length === 0 && shortcuts.removeBadge(useFavoritesIcon);
             }
           );
         }

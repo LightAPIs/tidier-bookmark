@@ -167,6 +167,9 @@
   "settingsSkinLabel": {
     "message": "外观"
   },
+  "settingsUseFavoritesIconText": {
+    "message": "将扩展程序图标替换成浏览器默认收藏夹图标"
+  },
   "settingsDarkModeText": {
     "message": "夜间模式$colon$",
     "placeholders": {

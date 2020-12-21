@@ -12,6 +12,7 @@
     "24": "icons/app/icon-24.png",
     "32": "icons/app/icon-32.png",
     "48": "icons/app/icon-48.png",
+    "64": "icons/app/icon-64.png",
     "96": "icons/app/icon-96.png",
     "128": "icons/app/icon-128.png"
   },
@@ -27,6 +28,7 @@
       "24": "icons/app/icon-24.png",
       "32": "icons/app/icon-32.png",
       "48": "icons/app/icon-48.png",
+      "64": "icons/app/icon-64.png",
       "96": "icons/app/icon-96.png",
       "128": "icons/app/icon-128.png"
     },

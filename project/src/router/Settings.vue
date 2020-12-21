@@ -18,7 +18,7 @@
         {{ $ui.get('settingsSkinLabel') }}
       </h3>
       <a-list-item slot="renderItem" slot-scope="item">
-        <div class="align-items-center">
+        <div v-if="item.type === 'select'" class="align-items-center">
           <span class="label">
             {{ item.title }}
           </span>
@@ -27,6 +27,12 @@
               {{ option.name }}
             </a-select-option>
           </a-select>
+        </div>
+        <div v-else class="align-items-center">
+          <a-switch :data-id="item.key" @change="onSwitchChange" :checked="item.value" />
+          <span class="item-text">
+            {{ item.title }}
+          </span>
         </div>
       </a-list-item>
     </a-list>
@@ -75,6 +81,7 @@ export default {
       skinData: [
         {
           key: 'darkMode',
+          type: 'select',
           value: 0,
           title: this.$ui.get('settingsDarkModeText', ':'),
           options: [
@@ -92,6 +99,12 @@ export default {
             },
           ],
         },
+        {
+          key: 'useFavoritesIcon',
+          type: 'switch',
+          value: false,
+          title: this.$ui.get('settingsUseFavoritesIconText'),
+        },
       ],
     };
   },
@@ -104,6 +117,11 @@ export default {
       this.bookmarkData.forEach((item, index) => {
         if (item.key == id) {
           this.bookmarkData[index].value = checked;
+        }
+      });
+      this.skinData.forEach((item, index) => {
+        if (item.key == id) {
+          this.skinData[index].value = checked;
         }
       });
       this.setValue();
@@ -159,7 +177,7 @@ export default {
   beforeCreate() {
     chrome.storage.local.get('settings', result => {
       const settings = result.settings || {};
-      const { bookmarkOnTop, folderOnTop, darkMode } = settings;
+      const { bookmarkOnTop, folderOnTop, darkMode, useFavoritesIcon } = settings;
 
       this.bookmarkData.forEach((data, index) => {
         if (data.key === 'bookmarkOnTop') {
@@ -172,6 +190,9 @@ export default {
       this.skinData.forEach((skin, index) => {
         if (skin.key === 'darkMode') {
           this.skinData[index].value = darkMode || 0;
+        }
+        if (skin.key === 'useFavoritesIcon') {
+          this.skinData[index].value = useFavoritesIcon || false;
         }
       });
     });
