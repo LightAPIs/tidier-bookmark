@@ -6,7 +6,7 @@
 
 ## 安装方法
 
-1. ~~前往 Chrome 网上应用店进行下载安装~~ (*等待商店审核中...*)
+1. 前往 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj)进行下载安装
 2. 点击[此处](https://github.com/LightAPIs/tidier-bookmark/releases/latest)下载压缩包并解压，启动浏览器在地址栏输入 `chrome://extensions/` 进入扩展程序管里页面，点击网页右上角开关以开启"开发者模式"，然后点击"加载已解压的扩展程序"按钮，选择先前解压所得目录即可加载扩展程序。
 
 ## 使用方法
