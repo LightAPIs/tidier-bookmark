@@ -16,7 +16,7 @@
     "fix": "eslint --fix 'src/**/*.{js,vue,less}'",
     "format": "prettier --write 'src/**/*.{js,vue,less}'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "standard-version && npm run build-zip"
+    "release": "standard-version"
   },
   "lint-staged": {
     "src/**/*.{js,vue,less}": [
@@ -29,6 +29,11 @@
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "standard-version": {
+    "scripts": {
+      "posttag": "npm run build-zip"
     }
   },
   "dependencies": {
