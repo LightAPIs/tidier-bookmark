@@ -16,7 +16,7 @@
     "fix": "eslint --fix 'src/**/*.{js,vue,less}'",
     "format": "prettier --write 'src/**/*.{js,vue,less}'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "standard-version"
+    "release": "standard-version && npm run build-zip"
   },
   "lint-staged": {
     "src/**/*.{js,vue,less}": [
