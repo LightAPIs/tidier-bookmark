@@ -6,8 +6,8 @@
 
 ## 安装方法
 
-1. 前往 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj)进行下载安装
-2. 点击[此处](https://github.com/LightAPIs/tidier-bookmark/releases/latest)下载压缩包并解压，启动浏览器在地址栏输入 `chrome://extensions/` 进入扩展程序管里页面，点击网页右上角开关以开启"开发者模式"，然后点击"加载已解压的扩展程序"按钮，选择先前解压所得目录即可加载扩展程序。
+1. 前往 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj)进行下载安装。
+2. 点击[此处](https://github.com/LightAPIs/tidier-bookmark/releases/latest)下载扩展程序压缩包并进行解压，启动浏览器在地址栏内输入 `chrome://extensions/` 进入扩展程序管理页面，点击网页右上角的开关以开启"开发者模式"，然后点击"加载已解压的扩展程序"按钮，选择加载先前解压所得目录即可完成扩展程序的安装。
 
 ## 使用方法
 
@@ -55,7 +55,7 @@ npm install
 
 ## 致谢
 
-本项目基于以下项目进行构建：
+本项目基于以下开源项目进行构建：
 
 - [vueComponent/ant-design-vue](https://github.com/vueComponent/ant-design-vue)
 - [zloirock/core-js](https://github.com/zloirock/core-js)
@@ -68,7 +68,7 @@ npm install
 - [uzairfarooq/arrive](https://github.com/uzairfarooq/arrive)
 - [zzarcon/default-passive-events](https://github.com/zzarcon/default-passive-events)
 
-最后感谢 [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 所提供的关于正则表达式学习与帮助文档。
+最后还要感谢 [ziishaned/learn-regex](https://github.com/ziishaned/learn-regex) 所提供的关于正则表达式学习与帮助文档。
 
 ## 许可证
 
