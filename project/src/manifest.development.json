@@ -3,7 +3,7 @@
   "name": "__MSG_extensionName__ (Dev)",
   "description": "__MSG_extensionDescription__",
   "author": "pana",
-  "homepage_url": "https://www.sailboatweb.com",
+  "homepage_url": "https://github.com/LightAPIs/tidier-bookmark",
   "version": "1.0.0",
   "default_locale": "en",
   "icons": {
