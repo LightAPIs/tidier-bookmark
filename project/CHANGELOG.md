@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/LightAPIs/tidier-bookmark/compare/v1.0.0...v1.0.1) (2020-12-28)
+
+
+### Bug Fixes
+
+* **zh_TW/messages.json:** 修正部分繁体中文翻译 ([83887c5](https://github.com/LightAPIs/tidier-bookmark/commit/83887c51a4c151c79a59a8582fbd7abfba1eeb71))
+
 ## 1.0.0 (2020-12-21)
 
 

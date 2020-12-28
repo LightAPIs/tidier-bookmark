@@ -1,7 +1,7 @@
 {
   "name": "tidier-bookmark",
   "description": "A chrome-extension project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "pana",
   "license": "GPL-3.0",
   "private": true,
