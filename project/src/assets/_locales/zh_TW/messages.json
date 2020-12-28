@@ -3,7 +3,7 @@
     "message": "Tidier bookmark"
   },
   "extensionDescription": {
-    "message": "允許在添加書籤時自動根據用戶定義的正則表達式規則對書籤名稱進行修改，以獲得更整潔的書籤，同時還提供了批量修改已存在書籤名稱的功能。"
+    "message": "允許在添加書籤時自動根據使用者定義的正則表達式規則對書籤名稱進行修改，以獲得更整潔的書籤，同時還提供了批量修改已存在書籤名稱的功能。"
   },
   "bookmarkNameLabel": {
     "message": "名稱"
@@ -123,28 +123,28 @@
     "message": "关于擴充功能"
   },
   "optionsImportText": {
-    "message": "導入配置"
+    "message": "匯入配置"
   },
   "optionsImportTip": {
     "message": "這將可能覆蓋當前的設定和規則，是否確認繼續？"
   },
   "optionsImportNoFileText": {
-    "message": "沒有選擇文件"
+    "message": "沒有選擇檔案"
   },
   "optionsImportValidText": {
-    "message": "這是一個無效的文件"
+    "message": "這是一個無效的檔案"
   },
   "optionsImportEmptyText": {
-    "message": "文件內容為空"
+    "message": "檔案內容為空"
   },
   "optionsImportErrorObjectText": {
     "message": "解析對象時出錯"
   },
   "optionsExportText": {
-    "message": "導出配置"
+    "message": "匯出配置"
   },
   "optionsExportLabel": {
-    "message": "請選擇需要導出的內容："
+    "message": "請選擇需要匯出的內容："
   },
   "optionsExportSettingsValue": {
     "message": "設定值"
@@ -162,13 +162,13 @@
     "message": "新增的資料夾總是在當前資料夾的最前面"
   },
   "settingsDisableAutoAddText": {
-    "message": "禁止在點擊擴充功能圖標時自動新增書籤"
+    "message": "禁止在點擊擴充功能圖示時自動新增書籤"
   },
   "settingsSkinLabel": {
     "message": "外觀"
   },
   "settingsUseFavoritesIconText": {
-    "message": "將擴充功能圖標替換成瀏覽器默認管理書籤圖標"
+    "message": "將擴充功能圖示替換成瀏覽器默認管理書籤圖示"
   },
   "settingsDarkModeText": {
     "message": "深色模式$colon$",
@@ -363,7 +363,7 @@
     "message": "支持"
   },
   "aboutSupportLabel": {
-    "message": "Tidier bookmark 秉承著開放共享的原則，是一款開源免費的 Chrome 擴充功能，並且絕不會收集發送您的任何隱私信息。"
+    "message": "Tidier bookmark 秉承著開放共享的原則，是一款開源免費的 Chrome 擴充功能，並且絕不會收集發送您的任何隱私資訊。"
   },
   "aboutSourceCodeText": {
     "message": "源代碼 (GPLv3)"
