@@ -16,13 +16,7 @@
     "96": "icons/app/icon-96.png",
     "128": "icons/app/icon-128.png"
   },
-  "permissions": [
-    "bookmarks",
-    "tabs",
-    "storage",
-    "contextMenus",
-    "chrome://favicon/*"
-  ],
+  "permissions": ["bookmarks", "tabs", "storage", "contextMenus", "chrome://favicon/*"],
   "options_page": "options.html",
   "background": {
     "page": "background.html"
@@ -40,5 +34,6 @@
     },
     "default_popup": "popup.html"
   },
-  "content_security_policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src * data: chrome:; connect-src * blob:; object-src 'none';"
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src * data: chrome:; connect-src * blob:; object-src 'none';",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgtr87qPR3Gv2QrIO8gjbfZWCu7MkU7WCeyVvHfUX9P/8JQbkymCbY0T8mlCOFBknjIMRVOtKk2Im1ZEx/TNVo0apyH5oOnwpH7whFu5Ns1V72zzBcubnbQHEMZHw0WNAI8Nt/rbWCBE9cO37+ko1YTlMGVZAHJEDfR5U2VAFpts6e5dD3JV3dx2+kuz3TyBUi/koXlqABD6ZPmBe564tk+ceXYew95SmwylfF+Je5LyiFWkAthZKDTDLFlSUwLr8Ky3VfDHziZZUqUsoixHVVdXnshwJ9cbJ7xFnTL/Q+w9rv1Fqy63acv/6QQVgaRkhQQ5b7To6JfSEKWESovULqQIDAQAB"
 }
