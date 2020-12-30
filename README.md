@@ -1,5 +1,7 @@
 # Tidier bookmark
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ecdhgoljkpghgkdcbejhepnkhnogmklj.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj)[![GPLv3](https://img.shields.io/badge/License-GPLv3-green)](/LICENSE.md)
+
 > 帮助实现更整洁的书签名称
 
 允许在添加书签时自动根据用户定义的正则表达式规则书签名称进行修改，以获得更整洁的书签，同时还提供了批量修改已存在书签名称的功能。
