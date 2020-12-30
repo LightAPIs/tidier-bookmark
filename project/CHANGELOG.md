@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/LightAPIs/tidier-bookmark/compare/v1.0.1...v1.0.2) (2020-12-30)
+
+
+### Bug Fixes
+
+* **manifest.*.json:** 为扩展程序添加公钥 ([7e9bf8c](https://github.com/LightAPIs/tidier-bookmark/commit/7e9bf8c82c11ca16bee1caad49003bdf06e04d8c))
+
 ### [1.0.1](https://github.com/LightAPIs/tidier-bookmark/compare/v1.0.0...v1.0.1) (2020-12-28)
 
 
