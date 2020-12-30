@@ -1,6 +1,6 @@
 # Tidier bookmark
 
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ecdhgoljkpghgkdcbejhepnkhnogmklj.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj)[![GPLv3](https://img.shields.io/badge/License-GPLv3-green)](/LICENSE.md)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ecdhgoljkpghgkdcbejhepnkhnogmklj.svg?maxAge=86400)](https://chrome.google.com/webstore/detail/tidier-bookmark/ecdhgoljkpghgkdcbejhepnkhnogmklj) [![GPLv3](https://img.shields.io/badge/License-GPLv3-green)](/LICENSE.md)
 
 > 帮助实现更整洁的书签名称
 
