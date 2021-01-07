@@ -152,6 +152,9 @@
   "optionsExportRulesValue": {
     "message": "規則"
   },
+  "optionsExportSuccess": {
+    "message": "成功匯出檔案"
+  },
   "settingsBookmarkLabel": {
     "message": "書籤"
   },

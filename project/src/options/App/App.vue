@@ -169,7 +169,9 @@ export default {
           const jsonString = JSON.stringify(result);
           const ciphertext = AES.encrypt(jsonString, secretKey).toString();
           const filename = 'config_' + Date.now().toString() + '.txt';
-          this.$tools.downloadTextFile(ciphertext, filename);
+          this.$tools.downloadTextFile(ciphertext, filename, () => {
+            this.$message.success(this.$ui.get('optionsExportSuccess'));
+          });
         });
       }
       this.file.visible = false;

@@ -152,6 +152,9 @@
   "optionsExportRulesValue": {
     "message": "Rules"
   },
+  "optionsExportSuccess": {
+    "message": "Successfully export file"
+  },
   "settingsBookmarkLabel": {
     "message": "Bookmarks"
   },
