@@ -34,6 +34,8 @@
 ```bash
 # 安装 Vue CLI
 npm install @vue/cli -g
+# 安装清理工具
+npm install rimraf -g
 # 安装 commitzen (可选，安装后可支持使用 `git cz` 替代 `git commit` 命令)
 npm install commitizen -g
 
@@ -45,9 +47,7 @@ npm install
 ### 已配置指令
 
 * `npm run build` - 构建项目
-* `npm run build-watch` - 构建项目(支持热重载)
-* `npm run format` - 格式化源代码
-* `npm run changelog` - 自动生成 Changelog
+* `npm run build-watch` - 构建项目 (支持热重载)
 
 ### 相关目录及文件
 
